@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>:: Gestión Plan Operativo Anual ::</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    @Styles.Render("~/Content/plantillaCss")
+    @Styles.Render("~/Content/plugins")
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" />
+    <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
+
+    @*@Scripts.Render("~/bundles/plantillaJS")
+        @Scripts.Render("~/bundles/angular")*@
+
+ 
+
+</head>
+<body ng-app="appGestion">
+    <nav class="navbar navbar-primary navbar-transparent navbar-absolute">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Plan Operativo Anual</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class=" active ">
+                        <a href="#">
+                            <i class="material-icons">fingerprint</i> Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="wrapper wrapper-full-page" ng-controller="LoginController as vm">
+        <div class="full-page login-page" filter-color="black" data-image="/Content/img/login.jpg">
+            <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+                            <form name="loginForm" ng-submit="vm.verifylogin()" novalidate">
+                                <div class="card card-login card-hidden">
+                                    <div class="card-header text-center" data-background-color="green">
+                                        <h4 class="card-title">Login</h4>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">account_circle</i>
+                                            </span>
+                                            <div class="form-group">
+                                                <label class="control-label">Usuario</label>
+                                                <input type="text" class="form-control" ng-model="vm.login.usuario" ng-init="vm.login.usuario=1306176650" required>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">lock_outline</i>
+                                            </span>
+                                            <div class="form-group">
+                                                <label class="control-label">Contraseña</label>
+                                                <input type="password" class="form-control" ng-model="vm.login.password" ng-init="vm.login.password=381324" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="footer text-center">
+                                        <button type="submit" class="btn btn-success" ng-disabled="loginForm.$invalid">
+                                            Ingresar
+                                            <span class="btn-label btn-label-right">
+                                                <i class="material-icons">keyboard_arrow_right</i>
+                                            </span>
+                                            <div class="ripple-container"></div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="container">
+                    <p class="copyright pull-right">
+                        &copy;
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>
+                        <a href="http://ups.espam.edu.ec/">UPS</a> - Unidad de Producción de Software
+                    </p>
+                </div>
+            </footer>
+
+        </div>
+        <!-- MODAL -->
+        <div id="myModalss" class="modal fade" data-backdrop="static" data-keyboard="false" ng-controller="LoginController as vm">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-success">:: Generar Planificación ::</h4>
+                    </div>
+                    <form name="planificacionForm" class="ui form" ng-submit="vm.registerPlanificacion()" novalidate>
+                        <div class="modal-body">
+                            <div class="form-group label-floating">
+                                <label class="control-label">PLANIFICACIÓN</label>
+                                <div class="form-group">
+                                    <select class="form-group" ng-model="vm.TipoPlanificacion" ng-options="arrOptionSelectTP.id as arrOptionSelectTP.Descripcion for arrOptionSelectTP in vm.arrOptionTP" required>
+                                        <option value="">-- Seleccione --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group label-floating">
+                                <label class="control-label">PERIOCIDAD</label>
+                                <div class="form-group">
+                                    <select class="form-group" ng-model="vm.Planificacionperiodo" ng-options="arrOptionSelect.id as arrOptionSelect.Periodo for arrOptionSelect in vm.arrOption" required>
+                                        <option value="">-- Seleccione --</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-fill btn-success" ng-disabled="planificacionForm.$invalid">Planificar <i class="next_week"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- END MODAL -->
+        <!-- MODAL POAPEDI -->
+        <div id="myModalPOAPEDI" class="modal fade" data-backdrop="static" data-keyboard="false" ng-controller="LoginController as vm">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-success">:: INGRESAR AL SISTEMA ::</h4>
+                    </div>
+                    <form name="planificacionForm" class="ui form" ng-submit="vm.SingInToPOAorPedi()" novalidate>
+                        <div class="modal-body">
+                            <div class="form-group label-floating">
+                                <label class="control-label">INGRESAR A LA ADMINISTRACIÓN COMO: </label>
+                                <div class="form-group">
+                                    <select class="form-group" required ng-model="vm.POAorPEDi">
+                                        <option value="POA">POA</option>
+                                        <option value="PEDI">PEDI</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-fill btn-success" ng-disabled="planificacionForm.$invalid">Ingresar <i class="forward"></i></button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- END MODAL POAPEDI -->
+
+    </div>
+
+    <script src="@Url.Content("~/Scripts/assets/js/jquery-3.1.1.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/jquery-ui.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/jquery-jvectormap.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/plugins/semantic.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/material.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/perfect-scrollbar.jquery.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/moment.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/chartist.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/jquery.bootstrap-wizard.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/bootstrap-notify.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/jquery.sharrre.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/bootstrap-datetimepicker.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/nouislider.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/jquery.select-bootstrap.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/jquery.datatables.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/sweetalert2.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/jasny-bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/fullcalendar.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/jquery.tagsinput.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/material-dashboard.js")"></script>
+    <script src="@Url.Content("~/Scripts/plugins/alertify.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/demo.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/angular.min.js")"></script>
+    <script src="@Url.Content("~/App/app.js")"></script>
+    <script src="@Url.Content("~/Scripts/angular-route.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/angular-animate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/angular-touch.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/ng-table.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/angular-input-masks-standalone.js")"></script>
+    <script src="@Url.Content("~/Scripts/cookies.js")"></script>
+    <script src="@Url.Content("~/Scripts/angular-pusher.js")"></script>
+    <script src="@Url.Content("~/App/Services/SubsistemasServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/ObjetivosEspecificosServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/ObjetivosEstrategicosServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/IndicadoresServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/AccionesServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/EstrategiasServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/LoginServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/MetasServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/EvidenciasServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/IntervalosServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/ProgramacionesServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/DepartamentosServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/MetasDepartamentosServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/ObjetivosEspecificosDepartamentosServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/PeriodicidadServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/InformacionAdicionalServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/AlertasServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/PeriodosServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/TiposDependenciasServices.js")"></script>
+    <script src="@Url.Content("~/App/Controller/SubsistemasController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/ObjetivosEspecificosController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/ObjetivosEstrategicosController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/IndicadoresController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/AccionesController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/LoginController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/MetasController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/MetasDepartamentosController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/ObjetivosEspecificosDepartamentosController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/PeriodicidadController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/InformacionAdicionalController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/CumplimientoOEstrategicoController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/AlertasController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/PeriodosController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/HomeController.js")"></script>
+    <script src="@Url.Content("~/App/Directivas/numbersOnly.js")"></script>
+    <script src="@Url.Content("~/App/Controller/EstrategiasController.js")"></script>
+    <script src="@Url.Content("~/App/Directivas/decimalOnly.js")"></script>
+    <script src="@Url.Content("~/App/Directivas/formatCurrency.js")"></script>
+    <script src="@Url.Content("~/App/Directivas/loader.js")"></script>
+
+
+
+
+    <script type="text/javascript">
+        $().ready(function () {
+
+            $('.datepicker').datetimepicker({
+                format: 'YYYY/MM/DD',
+                icons: {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove',
+                    inline: true
+                }
+            });
+
+            demo.checkFullPageBackgroundImage();
+
+            setTimeout(function () {
+                // after 1000 ms we add the class animated to the login/register card
+                $('.card').removeClass('card-hidden');
+            }, 700)
+        });
+    </script>
+
+
+</body>
+</html>

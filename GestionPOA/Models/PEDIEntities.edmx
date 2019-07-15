@@ -1,0 +1,2444 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PEDIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TipoCalificacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="250" />
+          <Property Name="eliminado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="DepartamentoID" />
+          </Key>
+          <Property Name="DepartamentoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" />
+          <Property Name="eliminado" Type="bit" />
+        </EntityType>
+        <EntityType Name="ObjeEspecificosDepartamento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoDependenciaID" Type="int" />
+          <Property Name="DepartamentoID" Type="int" />
+          <Property Name="ObjetivosEspecificosId" Type="int" />
+          <Property Name="eliminado" Type="bit" />
+        </EntityType>
+        <EntityType Name="ObjetivosEspecificos">
+          <Key>
+            <PropertyRef Name="ObjetivosEspecificosId" />
+          </Key>
+          <Property Name="ObjetivosEspecificosId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ObjetivosEstragicoId" Type="int" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="250" />
+          <Property Name="eliminado" Type="bit" />
+        </EntityType>
+        <EntityType Name="ObjetivosEstrategicos">
+          <Key>
+            <PropertyRef Name="ObjetivosEstragicoId" />
+          </Key>
+          <Property Name="ObjetivosEstragicoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubsistemaId" Type="int" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="250" />
+          <Property Name="eliminado" Type="bit" />
+        </EntityType>
+        <EntityType Name="periodo">
+          <Key>
+            <PropertyRef Name="periodoId" />
+          </Key>
+          <Property Name="periodoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="250" />
+          <Property Name="inicio" Type="date" />
+          <Property Name="fin" Type="date" />
+          <Property Name="eliminado" Type="bit" />
+          <Property Name="estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Subsistema">
+          <Key>
+            <PropertyRef Name="SubsistemaId" />
+          </Key>
+          <Property Name="SubsistemaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="250" />
+          <Property Name="eliminado" Type="bit" />
+          <Property Name="idperiodo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Acciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MetaID" Type="int" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="250" />
+          <Property Name="eliminado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Estrategias">
+          <Key>
+            <PropertyRef Name="EstrategiasId" />
+          </Key>
+          <Property Name="EstrategiasId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ObjetivosEspecificosId" Type="int" />
+          <Property Name="PlanificacionId" Type="int" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
+          <Property Name="eliminado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Evidencias">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProgramacionID" Type="int" />
+          <Property Name="evidencia" Type="nvarchar" MaxLength="250" />
+          <Property Name="fecha" Type="datetime" />
+          <Property Name="eliminado" Type="bit" />
+          <Property Name="valor" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Indicadores">
+          <Key>
+            <PropertyRef Name="IndicadorId" />
+          </Key>
+          <Property Name="IndicadorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EstrategiasId" Type="int" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="250" />
+          <Property Name="eliminado" Type="bit" />
+        </EntityType>
+        <EntityType Name="InformacioAdicional">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="metasId" Type="int" />
+          <Property Name="FormulaCalculo" Type="nvarchar" MaxLength="350" />
+          <Property Name="LineaBase" Type="nvarchar" MaxLength="350" />
+          <Property Name="MetodoEvaluacion" Type="nvarchar" MaxLength="350" />
+          <Property Name="eliminado" Type="bit" />
+        </EntityType>
+        <EntityType Name="intervalo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PeriodoId" Type="int" />
+          <Property Name="Orden" Type="int" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+          <Property Name="CampoPivot" Type="nvarchar" MaxLength="10" />
+          <Property Name="eliminado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Metas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IndicadorId" Type="int" />
+          <Property Name="Observacion" Type="nvarchar" MaxLength="250" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="250" />
+          <Property Name="tipoCalificacionId" Type="int" />
+          <Property Name="eliminado" Type="bit" />
+        </EntityType>
+        <EntityType Name="MetasDepartamento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MetasId" Type="int" />
+          <Property Name="DepartamentoID" Type="int" />
+          <Property Name="TipoDependenciaID" Type="int" />
+          <Property Name="fecha" Type="datetime" />
+          <Property Name="eliminado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Periocidad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Periodo" Type="nvarchar" MaxLength="50" />
+          <Property Name="estado" Type="bit" />
+          <Property Name="eliminado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Planificacion">
+          <Key>
+            <PropertyRef Name="PlanificacionId" />
+          </Key>
+          <Property Name="PlanificacionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartamentoID" Type="int" />
+          <Property Name="TipoDependenciaID" Type="int" />
+          <Property Name="TipoPlanificacionId" Type="int" />
+          <Property Name="PeriocidadID" Type="int" />
+          <Property Name="fecha" Type="datetime" />
+          <Property Name="eliminado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Presupuesto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MetaID" Type="int" />
+          <Property Name="Planificado" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Ejecutado" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="eliminado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Programacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="observacion" Type="nvarchar" MaxLength="250" />
+          <Property Name="planificado" Type="nvarchar" MaxLength="50" />
+          <Property Name="ejecutado" Type="nvarchar" MaxLength="50" />
+          <Property Name="IntervaloId" Type="int" />
+          <Property Name="MetaID" Type="int" />
+          <Property Name="ReadObservation" Type="bit" />
+          <Property Name="eliminado" Type="bit" />
+        </EntityType>
+        <EntityType Name="TipoDependencia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Identificador" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Eliminado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoPlanificacion">
+          <Key>
+            <PropertyRef Name="TipoPlanificacionId" />
+          </Key>
+          <Property Name="TipoPlanificacionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="250" />
+          <Property Name="eliminado" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Acciones_Metas">
+          <End Role="Metas" Type="Self.Metas" Multiplicity="0..1" />
+          <End Role="Acciones" Type="Self.Acciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Acciones">
+              <PropertyRef Name="MetaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estrategias_ObjetivosEspecificos1">
+          <End Role="ObjetivosEspecificos" Type="Self.ObjetivosEspecificos" Multiplicity="0..1" />
+          <End Role="Estrategias" Type="Self.Estrategias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ObjetivosEspecificos">
+              <PropertyRef Name="ObjetivosEspecificosId" />
+            </Principal>
+            <Dependent Role="Estrategias">
+              <PropertyRef Name="ObjetivosEspecificosId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estrategias_Planificacion">
+          <End Role="Planificacion" Type="Self.Planificacion" Multiplicity="0..1" />
+          <End Role="Estrategias" Type="Self.Estrategias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Planificacion">
+              <PropertyRef Name="PlanificacionId" />
+            </Principal>
+            <Dependent Role="Estrategias">
+              <PropertyRef Name="PlanificacionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Evidencias_Programacion">
+          <End Role="Programacion" Type="Self.Programacion" Multiplicity="0..1" />
+          <End Role="Evidencias" Type="Self.Evidencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Programacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Evidencias">
+              <PropertyRef Name="ProgramacionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Indicadores_Estrategias">
+          <End Role="Estrategias" Type="Self.Estrategias" Multiplicity="0..1" />
+          <End Role="Indicadores" Type="Self.Indicadores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estrategias">
+              <PropertyRef Name="EstrategiasId" />
+            </Principal>
+            <Dependent Role="Indicadores">
+              <PropertyRef Name="EstrategiasId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InformacioAdicional_Metas">
+          <End Role="Metas" Type="Self.Metas" Multiplicity="0..1" />
+          <End Role="InformacioAdicional" Type="Self.InformacioAdicional" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="InformacioAdicional">
+              <PropertyRef Name="metasId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_intervalo_Periodo">
+          <End Role="Periocidad" Type="Self.Periocidad" Multiplicity="0..1" />
+          <End Role="intervalo" Type="Self.intervalo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Periocidad">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="intervalo">
+              <PropertyRef Name="PeriodoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Metas_Indicadores">
+          <End Role="Indicadores" Type="Self.Indicadores" Multiplicity="0..1" />
+          <End Role="Metas" Type="Self.Metas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Indicadores">
+              <PropertyRef Name="IndicadorId" />
+            </Principal>
+            <Dependent Role="Metas">
+              <PropertyRef Name="IndicadorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Metas_TipoCalificacion">
+          <End Role="TipoCalificacion" Type="Self.TipoCalificacion" Multiplicity="0..1" />
+          <End Role="Metas" Type="Self.Metas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoCalificacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Metas">
+              <PropertyRef Name="tipoCalificacionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MetasDepartamento_Metas">
+          <End Role="Metas" Type="Self.Metas" Multiplicity="0..1" />
+          <End Role="MetasDepartamento" Type="Self.MetasDepartamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MetasDepartamento">
+              <PropertyRef Name="MetasId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MetasDepartamento_TipoDependencia">
+          <End Role="TipoDependencia" Type="Self.TipoDependencia" Multiplicity="0..1" />
+          <End Role="MetasDepartamento" Type="Self.MetasDepartamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoDependencia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MetasDepartamento">
+              <PropertyRef Name="TipoDependenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObjeEspecificosDepartamento_ObjetivosEspecificos">
+          <End Role="ObjetivosEspecificos" Type="Self.ObjetivosEspecificos" Multiplicity="0..1" />
+          <End Role="ObjeEspecificosDepartamento" Type="Self.ObjeEspecificosDepartamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ObjetivosEspecificos">
+              <PropertyRef Name="ObjetivosEspecificosId" />
+            </Principal>
+            <Dependent Role="ObjeEspecificosDepartamento">
+              <PropertyRef Name="ObjetivosEspecificosId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObjeEspecificosDepartamento_TipoDependencia">
+          <End Role="TipoDependencia" Type="Self.TipoDependencia" Multiplicity="0..1" />
+          <End Role="ObjeEspecificosDepartamento" Type="Self.ObjeEspecificosDepartamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoDependencia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ObjeEspecificosDepartamento">
+              <PropertyRef Name="TipoDependenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObjetivosEspecificos_ObjetivosEstrategicos">
+          <End Role="ObjetivosEstrategicos" Type="Self.ObjetivosEstrategicos" Multiplicity="0..1" />
+          <End Role="ObjetivosEspecificos" Type="Self.ObjetivosEspecificos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ObjetivosEstrategicos">
+              <PropertyRef Name="ObjetivosEstragicoId" />
+            </Principal>
+            <Dependent Role="ObjetivosEspecificos">
+              <PropertyRef Name="ObjetivosEstragicoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObjetivosEstrategicos_Subsistema">
+          <End Role="Subsistema" Type="Self.Subsistema" Multiplicity="0..1" />
+          <End Role="ObjetivosEstrategicos" Type="Self.ObjetivosEstrategicos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subsistema">
+              <PropertyRef Name="SubsistemaId" />
+            </Principal>
+            <Dependent Role="ObjetivosEstrategicos">
+              <PropertyRef Name="SubsistemaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Planificacion_Periocidad">
+          <End Role="Periocidad" Type="Self.Periocidad" Multiplicity="0..1" />
+          <End Role="Planificacion" Type="Self.Planificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Periocidad">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Planificacion">
+              <PropertyRef Name="PeriocidadID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Planificacion_TipoDependencia">
+          <End Role="TipoDependencia" Type="Self.TipoDependencia" Multiplicity="0..1" />
+          <End Role="Planificacion" Type="Self.Planificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoDependencia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Planificacion">
+              <PropertyRef Name="TipoDependenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Planificacion_TipoPlanificacion">
+          <End Role="TipoPlanificacion" Type="Self.TipoPlanificacion" Multiplicity="0..1" />
+          <End Role="Planificacion" Type="Self.Planificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoPlanificacion">
+              <PropertyRef Name="TipoPlanificacionId" />
+            </Principal>
+            <Dependent Role="Planificacion">
+              <PropertyRef Name="TipoPlanificacionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Presupuesto_Metas">
+          <End Role="Metas" Type="Self.Metas" Multiplicity="0..1" />
+          <End Role="Presupuesto" Type="Self.Presupuesto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Presupuesto">
+              <PropertyRef Name="MetaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Programacion_intervalo">
+          <End Role="intervalo" Type="Self.intervalo" Multiplicity="0..1" />
+          <End Role="Programacion" Type="Self.Programacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="intervalo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Programacion">
+              <PropertyRef Name="IntervaloId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Programacion_Metas">
+          <End Role="Metas" Type="Self.Metas" Multiplicity="0..1" />
+          <End Role="Programacion" Type="Self.Programacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Programacion">
+              <PropertyRef Name="MetaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subsistema_periodo">
+          <End Role="periodo" Type="Self.periodo" Multiplicity="1" />
+          <End Role="Subsistema" Type="Self.Subsistema" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="periodo">
+              <PropertyRef Name="periodoId" />
+            </Principal>
+            <Dependent Role="Subsistema">
+              <PropertyRef Name="idperiodo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ChangeEstadoPeriocidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="data" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="POAorPEDI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="data" Type="nvarchar" Mode="In" />
+          <Parameter Name="TipoDependenciaID" Type="int" Mode="In" />
+          <Parameter Name="DeparmentID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spCountPlanificacionEjecucion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion" />
+        <Function Name="spCountPlanificacionEjecucionPEDI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion" />
+        <Function Name="spDepartamentoConsult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion" />
+        <Function Name="spDepartamentoCorreoConsult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="idSubUnidad" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDepartamentoCorreoConsultDHBD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="identificadorTipoDependencia" Type="int" Mode="In" />
+          <Parameter Name="idDependencia" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDependenciaByIdentificadorTipoDependenciaConsultDHBD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="identificadorTipoDependencia" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spEstrategiasbyDepartamentoandObjetivoEspecifico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="DepartamentoId" Type="int" Mode="In" />
+          <Parameter Name="ObjetivoEspecificoId" Type="int" Mode="In" />
+          <Parameter Name="POAorPEDI" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spEstrategiasbyDepartamentoandObjetivoEspecificoPEDI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="DepartamentoId" Type="int" Mode="In" />
+          <Parameter Name="ObjetivoEspecificoId" Type="int" Mode="In" />
+          <Parameter Name="POAorPEDI" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spEstrategiasDepartment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="department" Type="int" Mode="In" />
+          <Parameter Name="POAorPEDI" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spEstrategiasInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="ObjetivosEspecificosId" Type="int" Mode="In" />
+          <Parameter Name="Descripcion" Type="nvarchar" Mode="In" />
+          <Parameter Name="departamentId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spEstrategiasInsertPEDI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="ObjetivosEspecificosId" Type="int" Mode="In" />
+          <Parameter Name="Descripcion" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="departamentId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spEstrategiasPeriodoActualConsult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="ObjetivoEspecifico" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spEvidenciasInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="programacionId" Type="int" Mode="In" />
+          <Parameter Name="evidencia" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spIndicadorDetalle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="indicadorId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spIndicadoresDepartment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="department" Type="int" Mode="In" />
+          <Parameter Name="POAorPEDI" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spMetaAndEjecucion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="tipodependencia" Type="int" Mode="In" />
+          <Parameter Name="department" Type="int" Mode="In" />
+          <Parameter Name="POAorPEDI" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spMetaAndEjecucionPEDI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="tipodependencia" Type="int" Mode="In" />
+          <Parameter Name="department" Type="int" Mode="In" />
+          <Parameter Name="POAorPEDI" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spMetaAndEjecucionPEDIGeneral" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion" />
+        <Function Name="spMetaAndProgramaciones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="tipoDependencia" Type="int" Mode="In" />
+          <Parameter Name="department" Type="int" Mode="In" />
+          <Parameter Name="POAorPEDI" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spMetaAndProgramacionesPEDI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="department" Type="int" Mode="In" />
+          <Parameter Name="POAorPEDI" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spMetaAndProgramacionesPEDIDHBD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="department" Type="int" Mode="In" />
+          <Parameter Name="POAorPEDI" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spMetaDetalle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="meta" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spMetasDepartamentosAsignadosConsult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion" />
+        <Function Name="spMetasDepartment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="department" Type="int" Mode="In" />
+          <Parameter Name="POAorPEDI" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spMetasDepartmentPEDI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="department" Type="int" Mode="In" />
+          <Parameter Name="POAorPEDI" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spMetasInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="IndicadorId" Type="int" Mode="In" />
+          <Parameter Name="Descripcion" Type="nvarchar" Mode="In" />
+          <Parameter Name="tipoCalificacionId" Type="int" Mode="In" />
+          <Parameter Name="PEDIorPOA" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spObjetivoEspecificoDepartamentosAsignadosSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion" />
+        <Function Name="spObjetivosEspecificosbyDepartamento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="department" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spObjetivosEspecificosbyDepartamentoPEDI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion" />
+        <Function Name="spObjetivosEspecificosConsult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="ObjetivoEstrategico" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spObjetivosEstrategicosConsult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="Subsistema" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spPorcentajeCumplimiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion">
+          <Parameter Name="idmeta" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spPorcentajeOEstrategico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion" />
+        <Function Name="spSelectPeriodos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion" />
+        <Function Name="spShowPlanificacionEjecucion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion" />
+        <Function Name="spShowPlanificacionEjecucionPEDI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion" />
+        <Function Name="spSubsistemaConsult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion" />
+        <Function Name="spTipoDependenciaConsultDHBD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="planificacion" />
+        <Function Name="spLoginIngreso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="usuarios">
+          <Parameter Name="Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="Clave" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spLoginIngreso2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="usuarios">
+          <Parameter Name="usuario" Type="varchar" Mode="In" />
+          <Parameter Name="clave" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="PEDIModelStoreContainer">
+          <EntitySet Name="TipoCalificacion" EntityType="Self.TipoCalificacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departamento" EntityType="Self.Departamento" Schema="gestion" store:Type="Tables" />
+          <EntitySet Name="ObjeEspecificosDepartamento" EntityType="Self.ObjeEspecificosDepartamento" Schema="gestion" store:Type="Tables" />
+          <EntitySet Name="ObjetivosEspecificos" EntityType="Self.ObjetivosEspecificos" Schema="gestion" store:Type="Tables" />
+          <EntitySet Name="ObjetivosEstrategicos" EntityType="Self.ObjetivosEstrategicos" Schema="gestion" store:Type="Tables" />
+          <EntitySet Name="periodo" EntityType="Self.periodo" Schema="gestion" store:Type="Tables" />
+          <EntitySet Name="Subsistema" EntityType="Self.Subsistema" Schema="gestion" store:Type="Tables" />
+          <EntitySet Name="Acciones" EntityType="Self.Acciones" Schema="planificacion" store:Type="Tables" />
+          <EntitySet Name="Estrategias" EntityType="Self.Estrategias" Schema="planificacion" store:Type="Tables" />
+          <EntitySet Name="Evidencias" EntityType="Self.Evidencias" Schema="planificacion" store:Type="Tables" />
+          <EntitySet Name="Indicadores" EntityType="Self.Indicadores" Schema="planificacion" store:Type="Tables" />
+          <EntitySet Name="InformacioAdicional" EntityType="Self.InformacioAdicional" Schema="planificacion" store:Type="Tables" />
+          <EntitySet Name="intervalo" EntityType="Self.intervalo" Schema="planificacion" store:Type="Tables" />
+          <EntitySet Name="Metas" EntityType="Self.Metas" Schema="planificacion" store:Type="Tables" />
+          <EntitySet Name="MetasDepartamento" EntityType="Self.MetasDepartamento" Schema="planificacion" store:Type="Tables" />
+          <EntitySet Name="Periocidad" EntityType="Self.Periocidad" Schema="planificacion" store:Type="Tables" />
+          <EntitySet Name="Planificacion" EntityType="Self.Planificacion" Schema="planificacion" store:Type="Tables" />
+          <EntitySet Name="Presupuesto" EntityType="Self.Presupuesto" Schema="planificacion" store:Type="Tables" />
+          <EntitySet Name="Programacion" EntityType="Self.Programacion" Schema="planificacion" store:Type="Tables" />
+          <EntitySet Name="TipoDependencia" EntityType="Self.TipoDependencia" Schema="planificacion" store:Type="Tables" />
+          <EntitySet Name="TipoPlanificacion" EntityType="Self.TipoPlanificacion" Schema="planificacion" store:Type="Tables" />
+          <AssociationSet Name="FK_Acciones_Metas" Association="Self.FK_Acciones_Metas">
+            <End Role="Metas" EntitySet="Metas" />
+            <End Role="Acciones" EntitySet="Acciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estrategias_ObjetivosEspecificos1" Association="Self.FK_Estrategias_ObjetivosEspecificos1">
+            <End Role="ObjetivosEspecificos" EntitySet="ObjetivosEspecificos" />
+            <End Role="Estrategias" EntitySet="Estrategias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estrategias_Planificacion" Association="Self.FK_Estrategias_Planificacion">
+            <End Role="Planificacion" EntitySet="Planificacion" />
+            <End Role="Estrategias" EntitySet="Estrategias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Evidencias_Programacion" Association="Self.FK_Evidencias_Programacion">
+            <End Role="Programacion" EntitySet="Programacion" />
+            <End Role="Evidencias" EntitySet="Evidencias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Indicadores_Estrategias" Association="Self.FK_Indicadores_Estrategias">
+            <End Role="Estrategias" EntitySet="Estrategias" />
+            <End Role="Indicadores" EntitySet="Indicadores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InformacioAdicional_Metas" Association="Self.FK_InformacioAdicional_Metas">
+            <End Role="Metas" EntitySet="Metas" />
+            <End Role="InformacioAdicional" EntitySet="InformacioAdicional" />
+          </AssociationSet>
+          <AssociationSet Name="FK_intervalo_Periodo" Association="Self.FK_intervalo_Periodo">
+            <End Role="Periocidad" EntitySet="Periocidad" />
+            <End Role="intervalo" EntitySet="intervalo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Metas_Indicadores" Association="Self.FK_Metas_Indicadores">
+            <End Role="Indicadores" EntitySet="Indicadores" />
+            <End Role="Metas" EntitySet="Metas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Metas_TipoCalificacion" Association="Self.FK_Metas_TipoCalificacion">
+            <End Role="TipoCalificacion" EntitySet="TipoCalificacion" />
+            <End Role="Metas" EntitySet="Metas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MetasDepartamento_Metas" Association="Self.FK_MetasDepartamento_Metas">
+            <End Role="Metas" EntitySet="Metas" />
+            <End Role="MetasDepartamento" EntitySet="MetasDepartamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MetasDepartamento_TipoDependencia" Association="Self.FK_MetasDepartamento_TipoDependencia">
+            <End Role="TipoDependencia" EntitySet="TipoDependencia" />
+            <End Role="MetasDepartamento" EntitySet="MetasDepartamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObjeEspecificosDepartamento_ObjetivosEspecificos" Association="Self.FK_ObjeEspecificosDepartamento_ObjetivosEspecificos">
+            <End Role="ObjetivosEspecificos" EntitySet="ObjetivosEspecificos" />
+            <End Role="ObjeEspecificosDepartamento" EntitySet="ObjeEspecificosDepartamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObjeEspecificosDepartamento_TipoDependencia" Association="Self.FK_ObjeEspecificosDepartamento_TipoDependencia">
+            <End Role="TipoDependencia" EntitySet="TipoDependencia" />
+            <End Role="ObjeEspecificosDepartamento" EntitySet="ObjeEspecificosDepartamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObjetivosEspecificos_ObjetivosEstrategicos" Association="Self.FK_ObjetivosEspecificos_ObjetivosEstrategicos">
+            <End Role="ObjetivosEstrategicos" EntitySet="ObjetivosEstrategicos" />
+            <End Role="ObjetivosEspecificos" EntitySet="ObjetivosEspecificos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObjetivosEstrategicos_Subsistema" Association="Self.FK_ObjetivosEstrategicos_Subsistema">
+            <End Role="Subsistema" EntitySet="Subsistema" />
+            <End Role="ObjetivosEstrategicos" EntitySet="ObjetivosEstrategicos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Planificacion_Periocidad" Association="Self.FK_Planificacion_Periocidad">
+            <End Role="Periocidad" EntitySet="Periocidad" />
+            <End Role="Planificacion" EntitySet="Planificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Planificacion_TipoDependencia" Association="Self.FK_Planificacion_TipoDependencia">
+            <End Role="TipoDependencia" EntitySet="TipoDependencia" />
+            <End Role="Planificacion" EntitySet="Planificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Planificacion_TipoPlanificacion" Association="Self.FK_Planificacion_TipoPlanificacion">
+            <End Role="TipoPlanificacion" EntitySet="TipoPlanificacion" />
+            <End Role="Planificacion" EntitySet="Planificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Presupuesto_Metas" Association="Self.FK_Presupuesto_Metas">
+            <End Role="Metas" EntitySet="Metas" />
+            <End Role="Presupuesto" EntitySet="Presupuesto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Programacion_intervalo" Association="Self.FK_Programacion_intervalo">
+            <End Role="intervalo" EntitySet="intervalo" />
+            <End Role="Programacion" EntitySet="Programacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Programacion_Metas" Association="Self.FK_Programacion_Metas">
+            <End Role="Metas" EntitySet="Metas" />
+            <End Role="Programacion" EntitySet="Programacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subsistema_periodo" Association="Self.FK_Subsistema_periodo">
+            <End Role="periodo" EntitySet="periodo" />
+            <End Role="Subsistema" EntitySet="Subsistema" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PEDIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="DepartamentoID" />
+          </Key>
+          <Property Name="DepartamentoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="eliminado" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="ObjeEspecificosDepartamento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartamentoID" Type="Int32" />
+          <Property Name="ObjetivosEspecificosId" Type="Int32" />
+          <Property Name="eliminado" Type="Boolean" />
+          <Property Name="TipoDependenciaID" Type="Int32" />
+          <NavigationProperty Name="ObjetivosEspecificos" Relationship="PEDIModel.FK_ObjeEspecificosDepartamento_ObjetivosEspecificos" FromRole="ObjeEspecificosDepartamento" ToRole="ObjetivosEspecificos" />
+          <NavigationProperty Name="TipoDependencia" Relationship="PEDIModel.FK_ObjeEspecificosDepartamento_TipoDependencia" FromRole="ObjeEspecificosDepartamento" ToRole="TipoDependencia" />
+        </EntityType>
+        <EntityType Name="ObjetivosEstrategicos">
+          <Key>
+            <PropertyRef Name="ObjetivosEstragicoId" />
+          </Key>
+          <Property Name="ObjetivosEstragicoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubsistemaId" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="eliminado" Type="Boolean" />
+          <NavigationProperty Name="Subsistema" Relationship="Self.FK_ObjetivosEstrategicos_Subsistema" FromRole="ObjetivosEstrategicos" ToRole="Subsistema" />
+          <NavigationProperty Name="ObjetivosEspecificos" Relationship="PEDIModel.FK_ObjetivosEspecificos_ObjetivosEstrategicos" FromRole="ObjetivosEstrategicos" ToRole="ObjetivosEspecificos" />
+        </EntityType>
+        <EntityType Name="periodo">
+          <Key>
+            <PropertyRef Name="periodoId" />
+          </Key>
+          <Property Name="periodoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="inicio" Type="DateTime" Precision="0" />
+          <Property Name="fin" Type="DateTime" Precision="0" />
+          <Property Name="eliminado" Type="Boolean" />
+          <Property Name="estado" Type="Boolean" />
+          <NavigationProperty Name="Subsistema" Relationship="Self.FK_Subsistema_periodo" FromRole="periodo" ToRole="Subsistema" />
+        </EntityType>
+        <EntityType Name="Subsistema">
+          <Key>
+            <PropertyRef Name="SubsistemaId" />
+          </Key>
+          <Property Name="SubsistemaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="eliminado" Type="Boolean" />
+          <Property Name="idperiodo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ObjetivosEstrategicos" Relationship="Self.FK_ObjetivosEstrategicos_Subsistema" FromRole="Subsistema" ToRole="ObjetivosEstrategicos" />
+          <NavigationProperty Name="periodo" Relationship="Self.FK_Subsistema_periodo" FromRole="Subsistema" ToRole="periodo" />
+        </EntityType>
+        <EntityType Name="Acciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MetaID" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="eliminado" Type="Boolean" />
+          <NavigationProperty Name="Metas" Relationship="Self.FK_Acciones_Metas" FromRole="Acciones" ToRole="Metas" />
+        </EntityType>
+        <EntityType Name="Estrategias">
+          <Key>
+            <PropertyRef Name="EstrategiasId" />
+          </Key>
+          <Property Name="EstrategiasId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ObjetivosEspecificosId" Type="Int32" />
+          <Property Name="PlanificacionId" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="eliminado" Type="Boolean" />
+          <NavigationProperty Name="Indicadores" Relationship="Self.FK_Indicadores_Estrategias" FromRole="Estrategias" ToRole="Indicadores" />
+          <NavigationProperty Name="ObjetivosEspecificos" Relationship="PEDIModel.FK_Estrategias_ObjetivosEspecificos1" FromRole="Estrategias" ToRole="ObjetivosEspecificos" />
+          <NavigationProperty Name="Planificacion" Relationship="PEDIModel.FK_Estrategias_Planificacion" FromRole="Estrategias" ToRole="Planificacion" />
+        </EntityType>
+        <EntityType Name="Evidencias">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProgramacionID" Type="Int32" />
+          <Property Name="evidencia" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+          <Property Name="eliminado" Type="Boolean" />
+          <Property Name="valor" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Programacion" Relationship="Self.FK_Evidencias_Programacion" FromRole="Evidencias" ToRole="Programacion" />
+        </EntityType>
+        <EntityType Name="Indicadores">
+          <Key>
+            <PropertyRef Name="IndicadorId" />
+          </Key>
+          <Property Name="IndicadorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EstrategiasId" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="eliminado" Type="Boolean" />
+          <NavigationProperty Name="Estrategias" Relationship="Self.FK_Indicadores_Estrategias" FromRole="Indicadores" ToRole="Estrategias" />
+          <NavigationProperty Name="Metas" Relationship="Self.FK_Metas_Indicadores" FromRole="Indicadores" ToRole="Metas" />
+        </EntityType>
+        <EntityType Name="InformacioAdicional">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="metasId" Type="Int32" />
+          <Property Name="FormulaCalculo" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="LineaBase" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="MetodoEvaluacion" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="eliminado" Type="Boolean" />
+          <NavigationProperty Name="Metas" Relationship="Self.FK_InformacioAdicional_Metas" FromRole="InformacioAdicional" ToRole="Metas" />
+        </EntityType>
+        <EntityType Name="intervalo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PeriodoId" Type="Int32" />
+          <Property Name="Orden" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CampoPivot" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="eliminado" Type="Boolean" />
+          <NavigationProperty Name="Periocidad" Relationship="Self.FK_intervalo_Periodo" FromRole="intervalo" ToRole="Periocidad" />
+          <NavigationProperty Name="Programacion" Relationship="Self.FK_Programacion_intervalo" FromRole="intervalo" ToRole="Programacion" />
+        </EntityType>
+        <EntityType Name="Metas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IndicadorId" Type="Int32" />
+          <Property Name="Observacion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="tipoCalificacionId" Type="Int32" />
+          <Property Name="eliminado" Type="Boolean" />
+          <NavigationProperty Name="Acciones" Relationship="Self.FK_Acciones_Metas" FromRole="Metas" ToRole="Acciones" />
+          <NavigationProperty Name="Indicadores" Relationship="Self.FK_Metas_Indicadores" FromRole="Metas" ToRole="Indicadores" />
+          <NavigationProperty Name="InformacioAdicional" Relationship="Self.FK_InformacioAdicional_Metas" FromRole="Metas" ToRole="InformacioAdicional" />
+          <NavigationProperty Name="MetasDepartamento" Relationship="Self.FK_MetasDepartamento_Metas" FromRole="Metas" ToRole="MetasDepartamento" />
+          <NavigationProperty Name="Presupuesto" Relationship="Self.FK_Presupuesto_Metas" FromRole="Metas" ToRole="Presupuesto" />
+          <NavigationProperty Name="Programacion" Relationship="Self.FK_Programacion_Metas" FromRole="Metas" ToRole="Programacion" />
+          <NavigationProperty Name="TipoCalificacion" Relationship="PEDIModel.FK_Metas_TipoCalificacion" FromRole="Metas" ToRole="TipoCalificacion" />
+        </EntityType>
+        <EntityType Name="MetasDepartamento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MetasId" Type="Int32" />
+          <Property Name="DepartamentoID" Type="Int32" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+          <Property Name="eliminado" Type="Boolean" />
+          <NavigationProperty Name="Metas" Relationship="Self.FK_MetasDepartamento_Metas" FromRole="MetasDepartamento" ToRole="Metas" />
+          <Property Name="TipoDependenciaID" Type="Int32" />
+          <NavigationProperty Name="TipoDependencia" Relationship="PEDIModel.FK_MetasDepartamento_TipoDependencia" FromRole="MetasDepartamento" ToRole="TipoDependencia" />
+        </EntityType>
+        <EntityType Name="Periocidad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Periodo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="estado" Type="Boolean" />
+          <Property Name="eliminado" Type="Boolean" />
+          <NavigationProperty Name="intervalo" Relationship="Self.FK_intervalo_Periodo" FromRole="Periocidad" ToRole="intervalo" />
+          <NavigationProperty Name="Planificacion" Relationship="PEDIModel.FK_Planificacion_Periocidad" FromRole="Periocidad" ToRole="Planificacion" />
+        </EntityType>
+        <EntityType Name="Presupuesto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MetaID" Type="Int32" />
+          <Property Name="Planificado" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Ejecutado" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="eliminado" Type="Boolean" />
+          <NavigationProperty Name="Metas" Relationship="Self.FK_Presupuesto_Metas" FromRole="Presupuesto" ToRole="Metas" />
+        </EntityType>
+        <EntityType Name="Programacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="observacion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="planificado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ejecutado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IntervaloId" Type="Int32" />
+          <Property Name="MetaID" Type="Int32" />
+          <Property Name="ReadObservation" Type="Boolean" />
+          <Property Name="eliminado" Type="Boolean" />
+          <NavigationProperty Name="Evidencias" Relationship="Self.FK_Evidencias_Programacion" FromRole="Programacion" ToRole="Evidencias" />
+          <NavigationProperty Name="intervalo" Relationship="Self.FK_Programacion_intervalo" FromRole="Programacion" ToRole="intervalo" />
+          <NavigationProperty Name="Metas" Relationship="Self.FK_Programacion_Metas" FromRole="Programacion" ToRole="Metas" />
+        </EntityType>
+        <EntityType Name="TipoPlanificacion">
+          <Key>
+            <PropertyRef Name="TipoPlanificacionId" />
+          </Key>
+          <Property Name="TipoPlanificacionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="eliminado" Type="Boolean" />
+          <NavigationProperty Name="Planificacion" Relationship="PEDIModel.FK_Planificacion_TipoPlanificacion" FromRole="TipoPlanificacion" ToRole="Planificacion" />
+        </EntityType>
+        <Association Name="FK_ObjetivosEstrategicos_Subsistema">
+          <End Role="Subsistema" Type="Self.Subsistema" Multiplicity="0..1" />
+          <End Role="ObjetivosEstrategicos" Type="Self.ObjetivosEstrategicos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subsistema">
+              <PropertyRef Name="SubsistemaId" />
+            </Principal>
+            <Dependent Role="ObjetivosEstrategicos">
+              <PropertyRef Name="SubsistemaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subsistema_periodo">
+          <End Role="periodo" Type="Self.periodo" Multiplicity="1" />
+          <End Role="Subsistema" Type="Self.Subsistema" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="periodo">
+              <PropertyRef Name="periodoId" />
+            </Principal>
+            <Dependent Role="Subsistema">
+              <PropertyRef Name="idperiodo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Acciones_Metas">
+          <End Role="Metas" Type="Self.Metas" Multiplicity="0..1" />
+          <End Role="Acciones" Type="Self.Acciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Acciones">
+              <PropertyRef Name="MetaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Indicadores_Estrategias">
+          <End Role="Estrategias" Type="Self.Estrategias" Multiplicity="0..1" />
+          <End Role="Indicadores" Type="Self.Indicadores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estrategias">
+              <PropertyRef Name="EstrategiasId" />
+            </Principal>
+            <Dependent Role="Indicadores">
+              <PropertyRef Name="EstrategiasId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Evidencias_Programacion">
+          <End Role="Programacion" Type="Self.Programacion" Multiplicity="0..1" />
+          <End Role="Evidencias" Type="Self.Evidencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Programacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Evidencias">
+              <PropertyRef Name="ProgramacionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Metas_Indicadores">
+          <End Role="Indicadores" Type="Self.Indicadores" Multiplicity="0..1" />
+          <End Role="Metas" Type="Self.Metas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Indicadores">
+              <PropertyRef Name="IndicadorId" />
+            </Principal>
+            <Dependent Role="Metas">
+              <PropertyRef Name="IndicadorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InformacioAdicional_Metas">
+          <End Role="Metas" Type="Self.Metas" Multiplicity="0..1" />
+          <End Role="InformacioAdicional" Type="Self.InformacioAdicional" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="InformacioAdicional">
+              <PropertyRef Name="metasId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_intervalo_Periodo">
+          <End Role="Periocidad" Type="Self.Periocidad" Multiplicity="0..1" />
+          <End Role="intervalo" Type="Self.intervalo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Periocidad">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="intervalo">
+              <PropertyRef Name="PeriodoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Programacion_intervalo">
+          <End Role="intervalo" Type="Self.intervalo" Multiplicity="0..1" />
+          <End Role="Programacion" Type="Self.Programacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="intervalo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Programacion">
+              <PropertyRef Name="IntervaloId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MetasDepartamento_Metas">
+          <End Role="Metas" Type="Self.Metas" Multiplicity="0..1" />
+          <End Role="MetasDepartamento" Type="Self.MetasDepartamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MetasDepartamento">
+              <PropertyRef Name="MetasId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Presupuesto_Metas">
+          <End Role="Metas" Type="Self.Metas" Multiplicity="0..1" />
+          <End Role="Presupuesto" Type="Self.Presupuesto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Presupuesto">
+              <PropertyRef Name="MetaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Programacion_Metas">
+          <End Role="Metas" Type="Self.Metas" Multiplicity="0..1" />
+          <End Role="Programacion" Type="Self.Programacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Programacion">
+              <PropertyRef Name="MetaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PEDIEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Departamento" EntityType="Self.Departamento" />
+          <EntitySet Name="ObjeEspecificosDepartamento" EntityType="Self.ObjeEspecificosDepartamento" />
+          <EntitySet Name="ObjetivosEstrategicos" EntityType="Self.ObjetivosEstrategicos" />
+          <EntitySet Name="periodo" EntityType="Self.periodo" />
+          <EntitySet Name="Subsistema" EntityType="Self.Subsistema" />
+          <EntitySet Name="Acciones" EntityType="Self.Acciones" />
+          <EntitySet Name="Estrategias" EntityType="Self.Estrategias" />
+          <EntitySet Name="Evidencias" EntityType="Self.Evidencias" />
+          <EntitySet Name="Indicadores" EntityType="Self.Indicadores" />
+          <EntitySet Name="InformacioAdicional" EntityType="Self.InformacioAdicional" />
+          <EntitySet Name="intervalo" EntityType="Self.intervalo" />
+          <EntitySet Name="Metas" EntityType="Self.Metas" />
+          <EntitySet Name="MetasDepartamento" EntityType="Self.MetasDepartamento" />
+          <EntitySet Name="Periocidad" EntityType="Self.Periocidad" />
+          <EntitySet Name="Presupuesto" EntityType="Self.Presupuesto" />
+          <EntitySet Name="Programacion" EntityType="Self.Programacion" />
+          <EntitySet Name="TipoPlanificacion" EntityType="Self.TipoPlanificacion" />
+          <AssociationSet Name="FK_ObjetivosEstrategicos_Subsistema" Association="Self.FK_ObjetivosEstrategicos_Subsistema">
+            <End Role="Subsistema" EntitySet="Subsistema" />
+            <End Role="ObjetivosEstrategicos" EntitySet="ObjetivosEstrategicos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subsistema_periodo" Association="Self.FK_Subsistema_periodo">
+            <End Role="periodo" EntitySet="periodo" />
+            <End Role="Subsistema" EntitySet="Subsistema" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Acciones_Metas" Association="Self.FK_Acciones_Metas">
+            <End Role="Metas" EntitySet="Metas" />
+            <End Role="Acciones" EntitySet="Acciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Indicadores_Estrategias" Association="Self.FK_Indicadores_Estrategias">
+            <End Role="Estrategias" EntitySet="Estrategias" />
+            <End Role="Indicadores" EntitySet="Indicadores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Evidencias_Programacion" Association="Self.FK_Evidencias_Programacion">
+            <End Role="Programacion" EntitySet="Programacion" />
+            <End Role="Evidencias" EntitySet="Evidencias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Metas_Indicadores" Association="Self.FK_Metas_Indicadores">
+            <End Role="Indicadores" EntitySet="Indicadores" />
+            <End Role="Metas" EntitySet="Metas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InformacioAdicional_Metas" Association="Self.FK_InformacioAdicional_Metas">
+            <End Role="Metas" EntitySet="Metas" />
+            <End Role="InformacioAdicional" EntitySet="InformacioAdicional" />
+          </AssociationSet>
+          <AssociationSet Name="FK_intervalo_Periodo" Association="Self.FK_intervalo_Periodo">
+            <End Role="Periocidad" EntitySet="Periocidad" />
+            <End Role="intervalo" EntitySet="intervalo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Programacion_intervalo" Association="Self.FK_Programacion_intervalo">
+            <End Role="intervalo" EntitySet="intervalo" />
+            <End Role="Programacion" EntitySet="Programacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MetasDepartamento_Metas" Association="Self.FK_MetasDepartamento_Metas">
+            <End Role="Metas" EntitySet="Metas" />
+            <End Role="MetasDepartamento" EntitySet="MetasDepartamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Presupuesto_Metas" Association="Self.FK_Presupuesto_Metas">
+            <End Role="Metas" EntitySet="Metas" />
+            <End Role="Presupuesto" EntitySet="Presupuesto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Programacion_Metas" Association="Self.FK_Programacion_Metas">
+            <End Role="Metas" EntitySet="Metas" />
+            <End Role="Programacion" EntitySet="Programacion" />
+          </AssociationSet>
+          <FunctionImport Name="ChangeEstadoPeriocidad">
+          <Parameter Name="data" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spCountPlanificacionEjecucion" ReturnType="Collection(Int32)" />
+          <FunctionImport Name="spCountPlanificacionEjecucionPEDI" ReturnType="Collection(Int32)" />
+          <FunctionImport Name="spDepartamentoConsult" ReturnType="Collection(PEDIModel.spDepartamentoConsult_Result)" />
+          <FunctionImport Name="spDepartamentoCorreoConsult" ReturnType="Collection(PEDIModel.spDepartamentoCorreoConsult_Result)">
+          <Parameter Name="idSubUnidad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spEstrategiasbyDepartamentoandObjetivoEspecifico" ReturnType="Collection(PEDIModel.spEstrategiasbyDepartamentoandObjetivoEspecifico_Result)">
+            <Parameter Name="DepartamentoId" Mode="In" Type="Int32" />
+            <Parameter Name="ObjetivoEspecificoId" Mode="In" Type="Int32" />
+            <Parameter Name="POAorPEDI" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spEstrategiasbyDepartamentoandObjetivoEspecificoPEDI" ReturnType="Collection(PEDIModel.spEstrategiasbyDepartamentoandObjetivoEspecificoPEDI_Result)">
+            <Parameter Name="DepartamentoId" Mode="In" Type="Int32" />
+            <Parameter Name="ObjetivoEspecificoId" Mode="In" Type="Int32" />
+            <Parameter Name="POAorPEDI" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spEstrategiasDepartment" ReturnType="Collection(PEDIModel.spEstrategiasDepartment_Result)">
+            <Parameter Name="department" Mode="In" Type="Int32" />
+            <Parameter Name="POAorPEDI" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spEstrategiasInsert">
+            <Parameter Name="ObjetivosEspecificosId" Mode="In" Type="Int32" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="departamentId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spEstrategiasInsertPEDI">
+            <Parameter Name="ObjetivosEspecificosId" Mode="In" Type="Int32" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="departamentId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spEstrategiasPeriodoActualConsult" ReturnType="Collection(PEDIModel.spEstrategiasPeriodoActualConsult_Result)">
+          <Parameter Name="ObjetivoEspecifico" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spIndicadorDetalle" ReturnType="Collection(PEDIModel.spIndicadorDetalle_Result)">
+          <Parameter Name="indicadorId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spIndicadoresDepartment" ReturnType="Collection(PEDIModel.spIndicadoresDepartment_Result)">
+            <Parameter Name="department" Mode="In" Type="Int32" />
+            <Parameter Name="POAorPEDI" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spMetaAndProgramacionesPEDI" ReturnType="Collection(PEDIModel.spMetaAndProgramacionesPEDI_Result)">
+            <Parameter Name="department" Mode="In" Type="Int32" />
+            <Parameter Name="POAorPEDI" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spMetaDetalle" ReturnType="Collection(PEDIModel.spMetaDetalle_Result)">
+          <Parameter Name="meta" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spMetasDepartamentosAsignadosConsult" ReturnType="Collection(PEDIModel.spMetasDepartamentosAsignadosConsult_Result)" />
+          <FunctionImport Name="spMetasDepartment" ReturnType="Collection(PEDIModel.spMetasDepartment_Result)">
+            <Parameter Name="department" Mode="In" Type="Int32" />
+            <Parameter Name="POAorPEDI" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spMetasDepartmentPEDI" ReturnType="Collection(PEDIModel.spMetasDepartmentPEDI_Result)">
+            <Parameter Name="department" Mode="In" Type="Int32" />
+            <Parameter Name="POAorPEDI" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spObjetivoEspecificoDepartamentosAsignadosSelect" ReturnType="Collection(PEDIModel.spObjetivoEspecificoDepartamentosAsignadosSelect_Result)" />
+          <FunctionImport Name="spObjetivosEspecificosbyDepartamento" ReturnType="Collection(PEDIModel.spObjetivosEspecificosbyDepartamento_Result)">
+          <Parameter Name="department" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spObjetivosEspecificosbyDepartamentoPEDI" ReturnType="Collection(PEDIModel.spObjetivosEspecificosbyDepartamentoPEDI_Result)" />
+          <FunctionImport Name="spObjetivosEspecificosConsult" ReturnType="Collection(PEDIModel.spObjetivosEspecificosConsult_Result)">
+          <Parameter Name="ObjetivoEstrategico" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spObjetivosEstrategicosConsult" ReturnType="Collection(PEDIModel.spObjetivosEstrategicosConsult_Result)">
+          <Parameter Name="Subsistema" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spPorcentajeCumplimiento" ReturnType="Collection(String)">
+          <Parameter Name="idmeta" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spPorcentajeOEstrategico" ReturnType="Collection(PEDIModel.spPorcentajeOEstrategico_Result)" />
+          <FunctionImport Name="spSelectPeriodos" ReturnType="Collection(PEDIModel.spSelectPeriodos_Result)" />
+          <FunctionImport Name="spShowPlanificacionEjecucion" ReturnType="Collection(PEDIModel.spShowPlanificacionEjecucion_Result)" />
+          <FunctionImport Name="spShowPlanificacionEjecucionPEDI" ReturnType="Collection(PEDIModel.spShowPlanificacionEjecucionPEDI_Result)" />
+          <FunctionImport Name="spSubsistemaConsult" ReturnType="Collection(PEDIModel.spSubsistemaConsult_Result)" />
+          <FunctionImport Name="spLoginIngreso">
+            <Parameter Name="Usuario" Mode="In" Type="String" />
+            <Parameter Name="Clave" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="TipoCalificacion" EntityType="PEDIModel.TipoCalificacion" />
+          <AssociationSet Name="FK_Metas_TipoCalificacion" Association="PEDIModel.FK_Metas_TipoCalificacion">
+            <End Role="TipoCalificacion" EntitySet="TipoCalificacion" />
+            <End Role="Metas" EntitySet="Metas" />
+          </AssociationSet>
+          <EntitySet Name="TipoDependencia" EntityType="PEDIModel.TipoDependencia" />
+          <AssociationSet Name="FK_MetasDepartamento_TipoDependencia" Association="PEDIModel.FK_MetasDepartamento_TipoDependencia">
+            <End Role="TipoDependencia" EntitySet="TipoDependencia" />
+            <End Role="MetasDepartamento" EntitySet="MetasDepartamento" />
+          </AssociationSet>
+          <FunctionImport Name="spTipoDependenciaConsultDHBD" ReturnType="Collection(PEDIModel.spTipoDependenciaConsultDHBD_Result)" />
+          <FunctionImport Name="spDependenciaByIdentificadorTipoDependenciaConsultDHBD" ReturnType="Collection(PEDIModel.spDependenciaByIdentificadorTipoDependenciaConsultDHBD_Result)">
+          <Parameter Name="identificadorTipoDependencia" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="ObjetivosEspecificos" EntityType="PEDIModel.ObjetivosEspecificos" />
+          <AssociationSet Name="FK_ObjeEspecificosDepartamento_ObjetivosEspecificos" Association="PEDIModel.FK_ObjeEspecificosDepartamento_ObjetivosEspecificos">
+            <End Role="ObjetivosEspecificos" EntitySet="ObjetivosEspecificos" />
+            <End Role="ObjeEspecificosDepartamento" EntitySet="ObjeEspecificosDepartamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObjeEspecificosDepartamento_TipoDependencia" Association="PEDIModel.FK_ObjeEspecificosDepartamento_TipoDependencia">
+            <End Role="TipoDependencia" EntitySet="TipoDependencia" />
+            <End Role="ObjeEspecificosDepartamento" EntitySet="ObjeEspecificosDepartamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estrategias_ObjetivosEspecificos1" Association="PEDIModel.FK_Estrategias_ObjetivosEspecificos1">
+            <End Role="ObjetivosEspecificos" EntitySet="ObjetivosEspecificos" />
+            <End Role="Estrategias" EntitySet="Estrategias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObjetivosEspecificos_ObjetivosEstrategicos" Association="PEDIModel.FK_ObjetivosEspecificos_ObjetivosEstrategicos">
+            <End Role="ObjetivosEstrategicos" EntitySet="ObjetivosEstrategicos" />
+            <End Role="ObjetivosEspecificos" EntitySet="ObjetivosEspecificos" />
+          </AssociationSet>
+          <FunctionImport Name="spDepartamentoCorreoConsultDHBD" ReturnType="Collection(PEDIModel.spDepartamentoCorreoConsultDHBD_Result)">
+            <Parameter Name="identificadorTipoDependencia" Mode="In" Type="Int32" />
+            <Parameter Name="idDependencia" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spLoginIngreso2" ReturnType="Collection(PEDIModel.spLoginIngreso2_Result)">
+            <Parameter Name="usuario" Mode="In" Type="String" />
+            <Parameter Name="clave" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="POAorPEDI" ReturnType="Collection(String)">
+            <Parameter Name="data" Mode="In" Type="String" />
+            <Parameter Name="TipoDependenciaID" Mode="In" Type="Int32" />
+            <Parameter Name="DeparmentID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Planificacion" EntityType="PEDIModel.Planificacion" />
+          <AssociationSet Name="FK_Estrategias_Planificacion" Association="PEDIModel.FK_Estrategias_Planificacion">
+            <End Role="Planificacion" EntitySet="Planificacion" />
+            <End Role="Estrategias" EntitySet="Estrategias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Planificacion_Periocidad" Association="PEDIModel.FK_Planificacion_Periocidad">
+            <End Role="Periocidad" EntitySet="Periocidad" />
+            <End Role="Planificacion" EntitySet="Planificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Planificacion_TipoDependencia" Association="PEDIModel.FK_Planificacion_TipoDependencia">
+            <End Role="TipoDependencia" EntitySet="TipoDependencia" />
+            <End Role="Planificacion" EntitySet="Planificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Planificacion_TipoPlanificacion" Association="PEDIModel.FK_Planificacion_TipoPlanificacion">
+            <End Role="TipoPlanificacion" EntitySet="TipoPlanificacion" />
+            <End Role="Planificacion" EntitySet="Planificacion" />
+          </AssociationSet>
+          <FunctionImport Name="spMetaAndProgramacionesPEDIDHBD" ReturnType="Collection(PEDIModel.spMetaAndProgramacionesPEDIDHBD_Result1)">
+            <Parameter Name="department" Mode="In" Type="Int32" />
+            <Parameter Name="POAorPEDI" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spMetaAndEjecucion" ReturnType="Collection(PEDIModel.spMetaAndEjecucion_Result1)">
+            <Parameter Name="tipodependencia" Mode="In" Type="Int32" />
+            <Parameter Name="department" Mode="In" Type="Int32" />
+            <Parameter Name="POAorPEDI" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spMetaAndProgramaciones" ReturnType="Collection(PEDIModel.spMetaAndProgramaciones_Result1)">
+            <Parameter Name="tipoDependencia" Mode="In" Type="Int32" />
+            <Parameter Name="department" Mode="In" Type="Int32" />
+            <Parameter Name="POAorPEDI" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spMetaAndEjecucionPEDIGeneral" ReturnType="Collection(PEDIModel.spMetaAndEjecucionPEDIGeneral_Result)" />
+          <FunctionImport Name="spMetaAndEjecucionPEDI" ReturnType="Collection(PEDIModel.spMetaAndEjecucionPEDI_Result)">
+            <Parameter Name="tipodependencia" Mode="In" Type="Int32" />
+            <Parameter Name="department" Mode="In" Type="Int32" />
+            <Parameter Name="POAorPEDI" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spMetasInsert" ReturnType="Collection(Int32)">
+            <Parameter Name="IndicadorId" Mode="In" Type="Int32" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="tipoCalificacionId" Mode="In" Type="Int32" />
+            <Parameter Name="PEDIorPOA" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spEvidenciasInsert" ReturnType="Collection(Decimal)">
+            <Parameter Name="programacionId" Mode="In" Type="Int32" />
+            <Parameter Name="evidencia" Mode="In" Type="String" />
+          </FunctionImport>
+          </EntityContainer>
+        <ComplexType Name="spDepartamentoConsult_Result">
+          <Property Type="String" Name="nombre_subunidad" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Nombres" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="SegundoNombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="id_subunidad" Nullable="false" />
+          <Property Type="Int32" Name="Id_Persona" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="EmailInstitucional" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spDepartamentoCorreoConsult_Result">
+          <Property Type="Int32" Name="id_subunidad" Nullable="false" />
+          <Property Type="String" Name="nombre_subunidad" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="EmailInstitucional" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spEstrategiasbyDepartamentoandObjetivoEspecifico_Result">
+          <Property Type="String" Name="Descripcion" Nullable="true" />
+          <Property Type="Int32" Name="EstrategiasId" Nullable="false" />
+          <Property Type="Int32" Name="PlanificacionId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spEstrategiasbyDepartamentoandObjetivoEspecificoPEDI_Result">
+          <Property Type="String" Name="Descripcion" Nullable="true" />
+          <Property Type="Int32" Name="EstrategiasId" Nullable="false" />
+          <Property Type="Int32" Name="PlanificacionId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spEstrategiasDepartment_Result">
+          <Property Type="Int32" Name="EstrategiasId" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spEstrategiasPeriodoActualConsult_Result">
+          <Property Type="Int32" Name="EstrategiasId" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spIndicadorDetalle_Result">
+          <Property Type="String" Name="Objetivo_Estrategico" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Objetivo_Especifico" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Estrategia" Nullable="true" />
+          <Property Type="String" Name="Indicador" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="spIndicadoresDepartment_Result">
+          <Property Type="Int32" Name="IndicadorId" Nullable="false" />
+          <Property Type="Int32" Name="EstrategiasId" Nullable="true" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="spMetaAndEjecucion_Result">
+          <Property Type="Int32" Name="MetaID" Nullable="false" />
+          <Property Type="String" Name="Metas" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="PresupuestoID" Nullable="false" />
+          <Property Type="Decimal" Name="P_Ejecutado" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="ID_I" Nullable="true" />
+          <Property Type="Int32" Name="ID_II" Nullable="true" />
+          <Property Type="Int32" Name="ID_III" Nullable="true" />
+          <Property Type="Int32" Name="ID_IV" Nullable="true" />
+          <Property Type="String" Name="I" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="II" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="III" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IV" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Cumplimiento" Nullable="true" MaxLength="31" />
+        </ComplexType>
+        <ComplexType Name="spMetaAndProgramaciones_Result">
+          <Property Type="Int32" Name="MetaID" Nullable="false" />
+          <Property Type="String" Name="Metas" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="PresupuestoID" Nullable="false" />
+          <Property Type="Decimal" Name="Presupuesto" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="ID_I" Nullable="true" />
+          <Property Type="Int32" Name="ID_II" Nullable="true" />
+          <Property Type="Int32" Name="ID_III" Nullable="true" />
+          <Property Type="Int32" Name="ID_IV" Nullable="true" />
+          <Property Type="String" Name="I" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="II" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="III" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IV" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Mes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spMetaAndProgramacionesPEDI_Result">
+          <Property Type="Int32" Name="MetaID" Nullable="false" />
+          <Property Type="String" Name="Metas" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="TipoCalificacion" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="PresupuestoID" Nullable="false" />
+          <Property Type="Decimal" Name="Presupuesto" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="ID_I" Nullable="true" />
+          <Property Type="Int32" Name="ID_II" Nullable="true" />
+          <Property Type="Int32" Name="ID_III" Nullable="true" />
+          <Property Type="Int32" Name="ID_IV" Nullable="true" />
+          <Property Type="Int32" Name="ID_V" Nullable="true" />
+          <Property Type="String" Name="I" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="II" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="III" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IV" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="V" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spMetaDetalle_Result">
+          <Property Type="String" Name="Objetivo_Estrategico" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Objetivo_Especifico" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Estrategia" Nullable="true" />
+          <Property Type="String" Name="Indicador" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="spMetasDepartamentosAsignadosConsult_Result">
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="nombre_subunidad" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="SubsistemaId" Nullable="false" />
+          <Property Type="Int32" Name="ObjetivosEstragicoId" Nullable="false" />
+          <Property Type="Int32" Name="ObjetivosEspecificosId" Nullable="false" />
+          <Property Type="Int32" Name="EstrategiasId" Nullable="false" />
+          <Property Type="Int32" Name="indicadorID" Nullable="false" />
+          <Property Type="Int32" Name="id_subunidad" Nullable="false" />
+          <Property Type="Int32" Name="metasID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spMetasDepartment_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="spMetasDepartmentPEDI_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="spObjetivoEspecificoDepartamentosAsignadosSelect_Result">
+          <Property Type="Int32" Name="SubsistemaId" Nullable="false" />
+          <Property Type="Int32" Name="ObjetivosEstragicoId" Nullable="false" />
+          <Property Type="Int32" Name="ObjetivosEspecificosId" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="nombre_subunidad" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="id" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spObjetivosEspecificosbyDepartamento_Result">
+          <Property Type="Int32" Name="ObjetivosEspecificosId" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="spObjetivosEspecificosbyDepartamentoPEDI_Result">
+          <Property Type="Int32" Name="ObjetivosEspecificosId" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="spObjetivosEspecificosConsult_Result">
+          <Property Type="Int32" Name="ObjetivosEspecificosId" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="spObjetivosEstrategicosConsult_Result">
+          <Property Type="Int32" Name="ObjetivosEstragicoId" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="spPorcentajeOEstrategico_Result">
+          <Property Type="Int32" Name="ObjetivosEstragicoId" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="sum_pla" Nullable="false" />
+          <Property Type="Int32" Name="sum_eje" Nullable="false" />
+          <Property Type="Decimal" Name="porcentaje" Nullable="false" Precision="10" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="spSelectPeriodos_Result">
+          <Property Type="Int32" Name="periodoId" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="250" />
+          <Property Type="DateTime" Name="inicio" Nullable="true" />
+          <Property Type="DateTime" Name="fin" Nullable="true" />
+          <Property Type="Boolean" Name="estado" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spShowPlanificacionEjecucion_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="nombre_subunidad" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="trimestre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="planificado" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ejecutado" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="observacion" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="spShowPlanificacionEjecucionPEDI_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="nombre_subunidad" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="trimestre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="planificado" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ejecutado" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="observacion" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="spSubsistemaConsult_Result">
+          <Property Type="Int32" Name="SubsistemaId" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <EntityType Name="TipoCalificacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="eliminado" Type="Boolean" />
+          <NavigationProperty Name="Metas" Relationship="PEDIModel.FK_Metas_TipoCalificacion" FromRole="TipoCalificacion" ToRole="Metas" />
+        </EntityType>
+        <Association Name="FK_Metas_TipoCalificacion">
+          <End Type="PEDIModel.TipoCalificacion" Role="TipoCalificacion" Multiplicity="0..1" />
+          <End Type="PEDIModel.Metas" Role="Metas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoCalificacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Metas">
+              <PropertyRef Name="tipoCalificacionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TipoDependencia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Identificador" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Eliminado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="MetasDepartamento" Relationship="PEDIModel.FK_MetasDepartamento_TipoDependencia" FromRole="TipoDependencia" ToRole="MetasDepartamento" />
+          <NavigationProperty Name="ObjeEspecificosDepartamento" Relationship="PEDIModel.FK_ObjeEspecificosDepartamento_TipoDependencia" FromRole="TipoDependencia" ToRole="ObjeEspecificosDepartamento" />
+          <NavigationProperty Name="Planificacion" Relationship="PEDIModel.FK_Planificacion_TipoDependencia" FromRole="TipoDependencia" ToRole="Planificacion" />
+        </EntityType>
+        <Association Name="FK_MetasDepartamento_TipoDependencia">
+          <End Type="PEDIModel.TipoDependencia" Role="TipoDependencia" Multiplicity="0..1" />
+          <End Type="PEDIModel.MetasDepartamento" Role="MetasDepartamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoDependencia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MetasDepartamento">
+              <PropertyRef Name="TipoDependenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="spTipoDependenciaConsultDHBD_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="Identificador" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="100" />
+          <Property Type="Boolean" Name="Eliminado" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spDependenciaByIdentificadorTipoDependenciaConsultDHBD_Result">
+          <Property Type="Int32" Name="idDependencia" Nullable="true" />
+          <Property Type="Int32" Name="idResponsableActual" Nullable="true" />
+          <Property Type="String" Name="descripcion" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="ObjetivosEspecificos">
+          <Key>
+            <PropertyRef Name="ObjetivosEspecificosId" />
+          </Key>
+          <Property Name="ObjetivosEspecificosId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ObjetivosEstragicoId" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="eliminado" Type="Boolean" />
+          <NavigationProperty Name="ObjeEspecificosDepartamento" Relationship="PEDIModel.FK_ObjeEspecificosDepartamento_ObjetivosEspecificos" FromRole="ObjetivosEspecificos" ToRole="ObjeEspecificosDepartamento" />
+          <NavigationProperty Name="Estrategias" Relationship="PEDIModel.FK_Estrategias_ObjetivosEspecificos1" FromRole="ObjetivosEspecificos" ToRole="Estrategias" />
+          <NavigationProperty Name="ObjetivosEstrategicos" Relationship="PEDIModel.FK_ObjetivosEspecificos_ObjetivosEstrategicos" FromRole="ObjetivosEspecificos" ToRole="ObjetivosEstrategicos" />
+        </EntityType>
+        <Association Name="FK_ObjeEspecificosDepartamento_ObjetivosEspecificos">
+          <End Type="PEDIModel.ObjetivosEspecificos" Role="ObjetivosEspecificos" Multiplicity="0..1" />
+          <End Type="PEDIModel.ObjeEspecificosDepartamento" Role="ObjeEspecificosDepartamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ObjetivosEspecificos">
+              <PropertyRef Name="ObjetivosEspecificosId" />
+            </Principal>
+            <Dependent Role="ObjeEspecificosDepartamento">
+              <PropertyRef Name="ObjetivosEspecificosId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObjeEspecificosDepartamento_TipoDependencia">
+          <End Type="PEDIModel.TipoDependencia" Role="TipoDependencia" Multiplicity="0..1" />
+          <End Type="PEDIModel.ObjeEspecificosDepartamento" Role="ObjeEspecificosDepartamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoDependencia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ObjeEspecificosDepartamento">
+              <PropertyRef Name="TipoDependenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estrategias_ObjetivosEspecificos1">
+          <End Type="PEDIModel.ObjetivosEspecificos" Role="ObjetivosEspecificos" Multiplicity="0..1" />
+          <End Type="PEDIModel.Estrategias" Role="Estrategias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ObjetivosEspecificos">
+              <PropertyRef Name="ObjetivosEspecificosId" />
+            </Principal>
+            <Dependent Role="Estrategias">
+              <PropertyRef Name="ObjetivosEspecificosId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObjetivosEspecificos_ObjetivosEstrategicos">
+          <End Type="PEDIModel.ObjetivosEstrategicos" Role="ObjetivosEstrategicos" Multiplicity="0..1" />
+          <End Type="PEDIModel.ObjetivosEspecificos" Role="ObjetivosEspecificos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ObjetivosEstrategicos">
+              <PropertyRef Name="ObjetivosEstragicoId" />
+            </Principal>
+            <Dependent Role="ObjetivosEspecificos">
+              <PropertyRef Name="ObjetivosEstragicoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="spDepartamentoCorreoConsultDHBD_Result">
+          <Property Type="Int32" Name="idDependencia" Nullable="true" />
+          <Property Type="Int32" Name="idResponsableActual" Nullable="true" />
+          <Property Type="String" Name="descripcion" Nullable="true" />
+          <Property Type="String" Name="email" Nullable="true" />
+          <Property Type="String" Name="emailInstitucional" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spMetaAndProgramacionesPEDIDHBD_Result">
+          <Property Type="Int32" Name="MetaID" Nullable="false" />
+          <Property Type="String" Name="Metas" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="TipoCalificacion" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="PresupuestoID" Nullable="false" />
+          <Property Type="Decimal" Name="Presupuesto" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="NombreSubUnidad" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="ID_I" Nullable="true" />
+          <Property Type="Int32" Name="ID_II" Nullable="true" />
+          <Property Type="Int32" Name="ID_III" Nullable="true" />
+          <Property Type="Int32" Name="ID_IV" Nullable="true" />
+          <Property Type="Int32" Name="ID_V" Nullable="true" />
+          <Property Type="String" Name="I" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="II" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="III" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IV" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="V" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spLoginIngreso2_Result">
+          <Property Type="String" Name="TipoRol" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="idDependencia" Nullable="true" />
+          <Property Type="String" Name="nombreDependencia" Nullable="true" />
+          <Property Type="Int32" Name="identificadorTipoDependencia" Nullable="true" />
+          <Property Type="String" Name="tipoDependencia" Nullable="true" />
+          <Property Type="Int32" Name="idPersona" Nullable="true" />
+          <Property Type="String" Name="Nombres" Nullable="true" />
+          <Property Type="String" Name="foto" Nullable="true" />
+          <Property Type="Int32" Name="idTipoDependencia" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Planificacion">
+          <Key>
+            <PropertyRef Name="PlanificacionId" />
+          </Key>
+          <Property Name="PlanificacionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartamentoID" Type="Int32" />
+          <Property Name="TipoDependenciaID" Type="Int32" />
+          <Property Name="TipoPlanificacionId" Type="Int32" />
+          <Property Name="PeriocidadID" Type="Int32" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+          <Property Name="eliminado" Type="Boolean" />
+          <NavigationProperty Name="Estrategias" Relationship="PEDIModel.FK_Estrategias_Planificacion" FromRole="Planificacion" ToRole="Estrategias" />
+          <NavigationProperty Name="Periocidad" Relationship="PEDIModel.FK_Planificacion_Periocidad" FromRole="Planificacion" ToRole="Periocidad" />
+          <NavigationProperty Name="TipoDependencia" Relationship="PEDIModel.FK_Planificacion_TipoDependencia" FromRole="Planificacion" ToRole="TipoDependencia" />
+          <NavigationProperty Name="TipoPlanificacion" Relationship="PEDIModel.FK_Planificacion_TipoPlanificacion" FromRole="Planificacion" ToRole="TipoPlanificacion" />
+        </EntityType>
+        <Association Name="FK_Estrategias_Planificacion">
+          <End Type="PEDIModel.Planificacion" Role="Planificacion" Multiplicity="0..1" />
+          <End Type="PEDIModel.Estrategias" Role="Estrategias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Planificacion">
+              <PropertyRef Name="PlanificacionId" />
+            </Principal>
+            <Dependent Role="Estrategias">
+              <PropertyRef Name="PlanificacionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Planificacion_Periocidad">
+          <End Type="PEDIModel.Periocidad" Role="Periocidad" Multiplicity="0..1" />
+          <End Type="PEDIModel.Planificacion" Role="Planificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Periocidad">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Planificacion">
+              <PropertyRef Name="PeriocidadID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Planificacion_TipoDependencia">
+          <End Type="PEDIModel.TipoDependencia" Role="TipoDependencia" Multiplicity="0..1" />
+          <End Type="PEDIModel.Planificacion" Role="Planificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoDependencia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Planificacion">
+              <PropertyRef Name="TipoDependenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Planificacion_TipoPlanificacion">
+          <End Type="PEDIModel.TipoPlanificacion" Role="TipoPlanificacion" Multiplicity="0..1" />
+          <End Type="PEDIModel.Planificacion" Role="Planificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoPlanificacion">
+              <PropertyRef Name="TipoPlanificacionId" />
+            </Principal>
+            <Dependent Role="Planificacion">
+              <PropertyRef Name="TipoPlanificacionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="spMetaAndProgramacionesPEDIDHBD_Result1">
+          <Property Type="Int32" Name="MetaID" Nullable="false" />
+          <Property Type="String" Name="Indicador" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Metas" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="TipoCalificacion" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="PresupuestoID" Nullable="false" />
+          <Property Type="Decimal" Name="Presupuesto" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="NombreSubUnidad" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="ID_I" Nullable="true" />
+          <Property Type="Int32" Name="ID_II" Nullable="true" />
+          <Property Type="Int32" Name="ID_III" Nullable="true" />
+          <Property Type="Int32" Name="ID_IV" Nullable="true" />
+          <Property Type="Int32" Name="ID_V" Nullable="true" />
+          <Property Type="String" Name="I" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="II" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="III" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IV" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="V" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spMetaAndEjecucion_Result1">
+          <Property Type="Int32" Name="MetaID" Nullable="false" />
+          <Property Type="String" Name="Indicadores" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Metas" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="PresupuestoID" Nullable="false" />
+          <Property Type="Decimal" Name="P_Ejecutado" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="ID_I" Nullable="true" />
+          <Property Type="Int32" Name="ID_II" Nullable="true" />
+          <Property Type="Int32" Name="ID_III" Nullable="true" />
+          <Property Type="Int32" Name="ID_IV" Nullable="true" />
+          <Property Type="String" Name="I" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="II" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="III" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IV" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Cumplimiento" Nullable="true" MaxLength="31" />
+        </ComplexType>
+        <ComplexType Name="spMetaAndProgramaciones_Result1">
+          <Property Type="Int32" Name="MetaID" Nullable="false" />
+          <Property Type="String" Name="Indicadores" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Metas" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="PresupuestoID" Nullable="false" />
+          <Property Type="Decimal" Name="Presupuesto" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="ID_I" Nullable="true" />
+          <Property Type="Int32" Name="ID_II" Nullable="true" />
+          <Property Type="Int32" Name="ID_III" Nullable="true" />
+          <Property Type="Int32" Name="ID_IV" Nullable="true" />
+          <Property Type="String" Name="I" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="II" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="III" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IV" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Mes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spMetaAndEjecucionPEDIGeneral_Result">
+          <Property Type="Int32" Name="MetaID" Nullable="false" />
+          <Property Type="String" Name="Responsables" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Indicadores" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Metas" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="ID_I" Nullable="true" />
+          <Property Type="Int32" Name="ID_II" Nullable="true" />
+          <Property Type="Int32" Name="ID_III" Nullable="true" />
+          <Property Type="Int32" Name="ID_IV" Nullable="true" />
+          <Property Type="Int32" Name="ID_V" Nullable="true" />
+          <Property Type="String" Name="I" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="II" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="III" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IV" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="V" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Planificacion" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spMetaAndEjecucionPEDI_Result">
+          <Property Type="Int32" Name="MetaID" Nullable="false" />
+          <Property Type="String" Name="Indicadores" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Metas" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="ID_I" Nullable="true" />
+          <Property Type="Int32" Name="ID_II" Nullable="true" />
+          <Property Type="Int32" Name="ID_III" Nullable="true" />
+          <Property Type="Int32" Name="ID_IV" Nullable="true" />
+          <Property Type="Int32" Name="ID_V" Nullable="true" />
+          <Property Type="String" Name="I" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="II" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="III" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IV" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="V" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Planificacion" Nullable="true" />
+        </ComplexType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PEDIModelStoreContainer" CdmEntityContainer="PEDIEntities">
+          <EntitySetMapping Name="Departamento">
+            <EntityTypeMapping TypeName="PEDIModel.Departamento">
+              <MappingFragment StoreEntitySet="Departamento">
+                <ScalarProperty Name="DepartamentoID" ColumnName="DepartamentoID" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ObjeEspecificosDepartamento">
+            <EntityTypeMapping TypeName="PEDIModel.ObjeEspecificosDepartamento">
+              <MappingFragment StoreEntitySet="ObjeEspecificosDepartamento">
+                <ScalarProperty Name="TipoDependenciaID" ColumnName="TipoDependenciaID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="DepartamentoID" ColumnName="DepartamentoID" />
+                <ScalarProperty Name="ObjetivosEspecificosId" ColumnName="ObjetivosEspecificosId" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ObjetivosEstrategicos">
+            <EntityTypeMapping TypeName="PEDIModel.ObjetivosEstrategicos">
+              <MappingFragment StoreEntitySet="ObjetivosEstrategicos">
+                <ScalarProperty Name="ObjetivosEstragicoId" ColumnName="ObjetivosEstragicoId" />
+                <ScalarProperty Name="SubsistemaId" ColumnName="SubsistemaId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="periodo">
+            <EntityTypeMapping TypeName="PEDIModel.periodo">
+              <MappingFragment StoreEntitySet="periodo">
+                <ScalarProperty Name="periodoId" ColumnName="periodoId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="inicio" ColumnName="inicio" />
+                <ScalarProperty Name="fin" ColumnName="fin" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subsistema">
+            <EntityTypeMapping TypeName="PEDIModel.Subsistema">
+              <MappingFragment StoreEntitySet="Subsistema">
+                <ScalarProperty Name="SubsistemaId" ColumnName="SubsistemaId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+                <ScalarProperty Name="idperiodo" ColumnName="idperiodo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Acciones">
+            <EntityTypeMapping TypeName="PEDIModel.Acciones">
+              <MappingFragment StoreEntitySet="Acciones">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="MetaID" ColumnName="MetaID" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estrategias">
+            <EntityTypeMapping TypeName="PEDIModel.Estrategias">
+              <MappingFragment StoreEntitySet="Estrategias">
+                <ScalarProperty Name="EstrategiasId" ColumnName="EstrategiasId" />
+                <ScalarProperty Name="ObjetivosEspecificosId" ColumnName="ObjetivosEspecificosId" />
+                <ScalarProperty Name="PlanificacionId" ColumnName="PlanificacionId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Evidencias">
+            <EntityTypeMapping TypeName="PEDIModel.Evidencias">
+              <MappingFragment StoreEntitySet="Evidencias">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ProgramacionID" ColumnName="ProgramacionID" />
+                <ScalarProperty Name="evidencia" ColumnName="evidencia" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Indicadores">
+            <EntityTypeMapping TypeName="PEDIModel.Indicadores">
+              <MappingFragment StoreEntitySet="Indicadores">
+                <ScalarProperty Name="IndicadorId" ColumnName="IndicadorId" />
+                <ScalarProperty Name="EstrategiasId" ColumnName="EstrategiasId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InformacioAdicional">
+            <EntityTypeMapping TypeName="PEDIModel.InformacioAdicional">
+              <MappingFragment StoreEntitySet="InformacioAdicional">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="metasId" ColumnName="metasId" />
+                <ScalarProperty Name="FormulaCalculo" ColumnName="FormulaCalculo" />
+                <ScalarProperty Name="LineaBase" ColumnName="LineaBase" />
+                <ScalarProperty Name="MetodoEvaluacion" ColumnName="MetodoEvaluacion" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="intervalo">
+            <EntityTypeMapping TypeName="PEDIModel.intervalo">
+              <MappingFragment StoreEntitySet="intervalo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="PeriodoId" ColumnName="PeriodoId" />
+                <ScalarProperty Name="Orden" ColumnName="Orden" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="CampoPivot" ColumnName="CampoPivot" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Metas">
+            <EntityTypeMapping TypeName="PEDIModel.Metas">
+              <MappingFragment StoreEntitySet="Metas">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="IndicadorId" ColumnName="IndicadorId" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="tipoCalificacionId" ColumnName="tipoCalificacionId" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MetasDepartamento">
+            <EntityTypeMapping TypeName="PEDIModel.MetasDepartamento">
+              <MappingFragment StoreEntitySet="MetasDepartamento">
+                <ScalarProperty Name="TipoDependenciaID" ColumnName="TipoDependenciaID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="MetasId" ColumnName="MetasId" />
+                <ScalarProperty Name="DepartamentoID" ColumnName="DepartamentoID" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Periocidad">
+            <EntityTypeMapping TypeName="PEDIModel.Periocidad">
+              <MappingFragment StoreEntitySet="Periocidad">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Presupuesto">
+            <EntityTypeMapping TypeName="PEDIModel.Presupuesto">
+              <MappingFragment StoreEntitySet="Presupuesto">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="MetaID" ColumnName="MetaID" />
+                <ScalarProperty Name="Planificado" ColumnName="Planificado" />
+                <ScalarProperty Name="Ejecutado" ColumnName="Ejecutado" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Programacion">
+            <EntityTypeMapping TypeName="PEDIModel.Programacion">
+              <MappingFragment StoreEntitySet="Programacion">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+                <ScalarProperty Name="planificado" ColumnName="planificado" />
+                <ScalarProperty Name="ejecutado" ColumnName="ejecutado" />
+                <ScalarProperty Name="IntervaloId" ColumnName="IntervaloId" />
+                <ScalarProperty Name="MetaID" ColumnName="MetaID" />
+                <ScalarProperty Name="ReadObservation" ColumnName="ReadObservation" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoPlanificacion">
+            <EntityTypeMapping TypeName="PEDIModel.TipoPlanificacion">
+              <MappingFragment StoreEntitySet="TipoPlanificacion">
+                <ScalarProperty Name="TipoPlanificacionId" ColumnName="TipoPlanificacionId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ChangeEstadoPeriocidad" FunctionName="PEDIModel.Store.ChangeEstadoPeriocidad" />
+          <FunctionImportMapping FunctionImportName="spCountPlanificacionEjecucion" FunctionName="PEDIModel.Store.spCountPlanificacionEjecucion" />
+          <FunctionImportMapping FunctionImportName="spCountPlanificacionEjecucionPEDI" FunctionName="PEDIModel.Store.spCountPlanificacionEjecucionPEDI" />
+          <FunctionImportMapping FunctionImportName="spDepartamentoConsult" FunctionName="PEDIModel.Store.spDepartamentoConsult">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spDepartamentoConsult_Result">
+                <ScalarProperty Name="nombre_subunidad" ColumnName="nombre_subunidad" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="SegundoNombre" ColumnName="SegundoNombre" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="id_subunidad" ColumnName="id_subunidad" />
+                <ScalarProperty Name="Id_Persona" ColumnName="Id_Persona" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailInstitucional" ColumnName="EmailInstitucional" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spDepartamentoCorreoConsult" FunctionName="PEDIModel.Store.spDepartamentoCorreoConsult">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spDepartamentoCorreoConsult_Result">
+                <ScalarProperty Name="id_subunidad" ColumnName="id_subunidad" />
+                <ScalarProperty Name="nombre_subunidad" ColumnName="nombre_subunidad" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailInstitucional" ColumnName="EmailInstitucional" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spEstrategiasbyDepartamentoandObjetivoEspecifico" FunctionName="PEDIModel.Store.spEstrategiasbyDepartamentoandObjetivoEspecifico">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spEstrategiasbyDepartamentoandObjetivoEspecifico_Result">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="EstrategiasId" ColumnName="EstrategiasId" />
+                <ScalarProperty Name="PlanificacionId" ColumnName="PlanificacionId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spEstrategiasbyDepartamentoandObjetivoEspecificoPEDI" FunctionName="PEDIModel.Store.spEstrategiasbyDepartamentoandObjetivoEspecificoPEDI">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spEstrategiasbyDepartamentoandObjetivoEspecificoPEDI_Result">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="EstrategiasId" ColumnName="EstrategiasId" />
+                <ScalarProperty Name="PlanificacionId" ColumnName="PlanificacionId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spEstrategiasDepartment" FunctionName="PEDIModel.Store.spEstrategiasDepartment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spEstrategiasDepartment_Result">
+                <ScalarProperty Name="EstrategiasId" ColumnName="EstrategiasId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spEstrategiasInsert" FunctionName="PEDIModel.Store.spEstrategiasInsert" />
+          <FunctionImportMapping FunctionImportName="spEstrategiasInsertPEDI" FunctionName="PEDIModel.Store.spEstrategiasInsertPEDI" />
+          <FunctionImportMapping FunctionImportName="spEstrategiasPeriodoActualConsult" FunctionName="PEDIModel.Store.spEstrategiasPeriodoActualConsult">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spEstrategiasPeriodoActualConsult_Result">
+                <ScalarProperty Name="EstrategiasId" ColumnName="EstrategiasId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spIndicadorDetalle" FunctionName="PEDIModel.Store.spIndicadorDetalle">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spIndicadorDetalle_Result">
+                <ScalarProperty Name="Objetivo_Estrategico" ColumnName="Objetivo_Estrategico" />
+                <ScalarProperty Name="Objetivo_Especifico" ColumnName="Objetivo_Especifico" />
+                <ScalarProperty Name="Estrategia" ColumnName="Estrategia" />
+                <ScalarProperty Name="Indicador" ColumnName="Indicador" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spIndicadoresDepartment" FunctionName="PEDIModel.Store.spIndicadoresDepartment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spIndicadoresDepartment_Result">
+                <ScalarProperty Name="IndicadorId" ColumnName="IndicadorId" />
+                <ScalarProperty Name="EstrategiasId" ColumnName="EstrategiasId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spMetaAndProgramacionesPEDI" FunctionName="PEDIModel.Store.spMetaAndProgramacionesPEDI">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spMetaAndProgramacionesPEDI_Result">
+                <ScalarProperty Name="MetaID" ColumnName="MetaID" />
+                <ScalarProperty Name="Metas" ColumnName="Metas" />
+                <ScalarProperty Name="TipoCalificacion" ColumnName="TipoCalificacion" />
+                <ScalarProperty Name="PresupuestoID" ColumnName="PresupuestoID" />
+                <ScalarProperty Name="Presupuesto" ColumnName="Presupuesto" />
+                <ScalarProperty Name="ID_I" ColumnName="ID_I" />
+                <ScalarProperty Name="ID_II" ColumnName="ID_II" />
+                <ScalarProperty Name="ID_III" ColumnName="ID_III" />
+                <ScalarProperty Name="ID_IV" ColumnName="ID_IV" />
+                <ScalarProperty Name="ID_V" ColumnName="ID_V" />
+                <ScalarProperty Name="I" ColumnName="I" />
+                <ScalarProperty Name="II" ColumnName="II" />
+                <ScalarProperty Name="III" ColumnName="III" />
+                <ScalarProperty Name="IV" ColumnName="IV" />
+                <ScalarProperty Name="V" ColumnName="V" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spMetaDetalle" FunctionName="PEDIModel.Store.spMetaDetalle">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spMetaDetalle_Result">
+                <ScalarProperty Name="Objetivo_Estrategico" ColumnName="Objetivo_Estrategico" />
+                <ScalarProperty Name="Objetivo_Especifico" ColumnName="Objetivo_Especifico" />
+                <ScalarProperty Name="Estrategia" ColumnName="Estrategia" />
+                <ScalarProperty Name="Indicador" ColumnName="Indicador" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spMetasDepartamentosAsignadosConsult" FunctionName="PEDIModel.Store.spMetasDepartamentosAsignadosConsult">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spMetasDepartamentosAsignadosConsult_Result">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre_subunidad" ColumnName="nombre_subunidad" />
+                <ScalarProperty Name="SubsistemaId" ColumnName="SubsistemaId" />
+                <ScalarProperty Name="ObjetivosEstragicoId" ColumnName="ObjetivosEstragicoId" />
+                <ScalarProperty Name="ObjetivosEspecificosId" ColumnName="ObjetivosEspecificosId" />
+                <ScalarProperty Name="EstrategiasId" ColumnName="EstrategiasId" />
+                <ScalarProperty Name="indicadorID" ColumnName="indicadorID" />
+                <ScalarProperty Name="id_subunidad" ColumnName="id_subunidad" />
+                <ScalarProperty Name="metasID" ColumnName="metasID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spMetasDepartment" FunctionName="PEDIModel.Store.spMetasDepartment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spMetasDepartment_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spMetasDepartmentPEDI" FunctionName="PEDIModel.Store.spMetasDepartmentPEDI">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spMetasDepartmentPEDI_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spObjetivoEspecificoDepartamentosAsignadosSelect" FunctionName="PEDIModel.Store.spObjetivoEspecificoDepartamentosAsignadosSelect">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spObjetivoEspecificoDepartamentosAsignadosSelect_Result">
+                <ScalarProperty Name="SubsistemaId" ColumnName="SubsistemaId" />
+                <ScalarProperty Name="ObjetivosEstragicoId" ColumnName="ObjetivosEstragicoId" />
+                <ScalarProperty Name="ObjetivosEspecificosId" ColumnName="ObjetivosEspecificosId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="nombre_subunidad" ColumnName="nombre_subunidad" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spObjetivosEspecificosbyDepartamento" FunctionName="PEDIModel.Store.spObjetivosEspecificosbyDepartamento">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spObjetivosEspecificosbyDepartamento_Result">
+                <ScalarProperty Name="ObjetivosEspecificosId" ColumnName="ObjetivosEspecificosId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spObjetivosEspecificosbyDepartamentoPEDI" FunctionName="PEDIModel.Store.spObjetivosEspecificosbyDepartamentoPEDI">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spObjetivosEspecificosbyDepartamentoPEDI_Result">
+                <ScalarProperty Name="ObjetivosEspecificosId" ColumnName="ObjetivosEspecificosId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spObjetivosEspecificosConsult" FunctionName="PEDIModel.Store.spObjetivosEspecificosConsult">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spObjetivosEspecificosConsult_Result">
+                <ScalarProperty Name="ObjetivosEspecificosId" ColumnName="ObjetivosEspecificosId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spObjetivosEstrategicosConsult" FunctionName="PEDIModel.Store.spObjetivosEstrategicosConsult">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spObjetivosEstrategicosConsult_Result">
+                <ScalarProperty Name="ObjetivosEstragicoId" ColumnName="ObjetivosEstragicoId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spPorcentajeCumplimiento" FunctionName="PEDIModel.Store.spPorcentajeCumplimiento" />
+          <FunctionImportMapping FunctionImportName="spPorcentajeOEstrategico" FunctionName="PEDIModel.Store.spPorcentajeOEstrategico">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spPorcentajeOEstrategico_Result">
+                <ScalarProperty Name="ObjetivosEstragicoId" ColumnName="ObjetivosEstragicoId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="sum_pla" ColumnName="sum_pla" />
+                <ScalarProperty Name="sum_eje" ColumnName="sum_eje" />
+                <ScalarProperty Name="porcentaje" ColumnName="porcentaje" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spSelectPeriodos" FunctionName="PEDIModel.Store.spSelectPeriodos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spSelectPeriodos_Result">
+                <ScalarProperty Name="periodoId" ColumnName="periodoId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="inicio" ColumnName="inicio" />
+                <ScalarProperty Name="fin" ColumnName="fin" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spShowPlanificacionEjecucion" FunctionName="PEDIModel.Store.spShowPlanificacionEjecucion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spShowPlanificacionEjecucion_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre_subunidad" ColumnName="nombre_subunidad" />
+                <ScalarProperty Name="trimestre" ColumnName="trimestre" />
+                <ScalarProperty Name="planificado" ColumnName="planificado" />
+                <ScalarProperty Name="ejecutado" ColumnName="ejecutado" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spShowPlanificacionEjecucionPEDI" FunctionName="PEDIModel.Store.spShowPlanificacionEjecucionPEDI">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spShowPlanificacionEjecucionPEDI_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre_subunidad" ColumnName="nombre_subunidad" />
+                <ScalarProperty Name="trimestre" ColumnName="trimestre" />
+                <ScalarProperty Name="planificado" ColumnName="planificado" />
+                <ScalarProperty Name="ejecutado" ColumnName="ejecutado" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spSubsistemaConsult" FunctionName="PEDIModel.Store.spSubsistemaConsult">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spSubsistemaConsult_Result">
+                <ScalarProperty Name="SubsistemaId" ColumnName="SubsistemaId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spLoginIngreso" FunctionName="PEDIModel.Store.spLoginIngreso" />
+          <EntitySetMapping Name="TipoCalificacion">
+            <EntityTypeMapping TypeName="PEDIModel.TipoCalificacion">
+              <MappingFragment StoreEntitySet="TipoCalificacion">
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoDependencia">
+            <EntityTypeMapping TypeName="PEDIModel.TipoDependencia">
+              <MappingFragment StoreEntitySet="TipoDependencia">
+                <ScalarProperty Name="Eliminado" ColumnName="Eliminado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Identificador" ColumnName="Identificador" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spTipoDependenciaConsultDHBD" FunctionName="PEDIModel.Store.spTipoDependenciaConsultDHBD">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spTipoDependenciaConsultDHBD_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Identificador" ColumnName="Identificador" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Eliminado" ColumnName="Eliminado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spDependenciaByIdentificadorTipoDependenciaConsultDHBD" FunctionName="PEDIModel.Store.spDependenciaByIdentificadorTipoDependenciaConsultDHBD">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spDependenciaByIdentificadorTipoDependenciaConsultDHBD_Result">
+                <ScalarProperty Name="idDependencia" ColumnName="idDependencia" />
+                <ScalarProperty Name="idResponsableActual" ColumnName="idResponsableActual" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="ObjetivosEspecificos">
+            <EntityTypeMapping TypeName="PEDIModel.ObjetivosEspecificos">
+              <MappingFragment StoreEntitySet="ObjetivosEspecificos">
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="ObjetivosEstragicoId" ColumnName="ObjetivosEstragicoId" />
+                <ScalarProperty Name="ObjetivosEspecificosId" ColumnName="ObjetivosEspecificosId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spDepartamentoCorreoConsultDHBD" FunctionName="PEDIModel.Store.spDepartamentoCorreoConsultDHBD">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spDepartamentoCorreoConsultDHBD_Result">
+                <ScalarProperty Name="idDependencia" ColumnName="idDependencia" />
+                <ScalarProperty Name="idResponsableActual" ColumnName="idResponsableActual" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="emailInstitucional" ColumnName="emailInstitucional" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spLoginIngreso2" FunctionName="PEDIModel.Store.spLoginIngreso2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spLoginIngreso2_Result">
+                <ScalarProperty Name="TipoRol" ColumnName="TipoRol" />
+                <ScalarProperty Name="idDependencia" ColumnName="idDependencia" />
+                <ScalarProperty Name="nombreDependencia" ColumnName="nombreDependencia" />
+                <ScalarProperty Name="identificadorTipoDependencia" ColumnName="identificadorTipoDependencia" />
+                <ScalarProperty Name="tipoDependencia" ColumnName="tipoDependencia" />
+                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="idTipoDependencia" ColumnName="idTipoDependencia" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="POAorPEDI" FunctionName="PEDIModel.Store.POAorPEDI" />
+          <EntitySetMapping Name="Planificacion">
+            <EntityTypeMapping TypeName="PEDIModel.Planificacion">
+              <MappingFragment StoreEntitySet="Planificacion">
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="PeriocidadID" ColumnName="PeriocidadID" />
+                <ScalarProperty Name="TipoPlanificacionId" ColumnName="TipoPlanificacionId" />
+                <ScalarProperty Name="TipoDependenciaID" ColumnName="TipoDependenciaID" />
+                <ScalarProperty Name="DepartamentoID" ColumnName="DepartamentoID" />
+                <ScalarProperty Name="PlanificacionId" ColumnName="PlanificacionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spMetaAndProgramacionesPEDIDHBD" FunctionName="PEDIModel.Store.spMetaAndProgramacionesPEDIDHBD">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spMetaAndProgramacionesPEDIDHBD_Result1">
+                <ScalarProperty Name="MetaID" ColumnName="MetaID" />
+                <ScalarProperty Name="Indicador" ColumnName="Indicador" />
+                <ScalarProperty Name="Metas" ColumnName="Metas" />
+                <ScalarProperty Name="TipoCalificacion" ColumnName="TipoCalificacion" />
+                <ScalarProperty Name="PresupuestoID" ColumnName="PresupuestoID" />
+                <ScalarProperty Name="Presupuesto" ColumnName="Presupuesto" />
+                <ScalarProperty Name="NombreSubUnidad" ColumnName="NombreSubUnidad" />
+                <ScalarProperty Name="ID_I" ColumnName="ID_I" />
+                <ScalarProperty Name="ID_II" ColumnName="ID_II" />
+                <ScalarProperty Name="ID_III" ColumnName="ID_III" />
+                <ScalarProperty Name="ID_IV" ColumnName="ID_IV" />
+                <ScalarProperty Name="ID_V" ColumnName="ID_V" />
+                <ScalarProperty Name="I" ColumnName="I" />
+                <ScalarProperty Name="II" ColumnName="II" />
+                <ScalarProperty Name="III" ColumnName="III" />
+                <ScalarProperty Name="IV" ColumnName="IV" />
+                <ScalarProperty Name="V" ColumnName="V" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spMetaAndEjecucion" FunctionName="PEDIModel.Store.spMetaAndEjecucion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spMetaAndEjecucion_Result1">
+                <ScalarProperty Name="MetaID" ColumnName="MetaID" />
+                <ScalarProperty Name="Indicadores" ColumnName="Indicadores" />
+                <ScalarProperty Name="Metas" ColumnName="Metas" />
+                <ScalarProperty Name="PresupuestoID" ColumnName="PresupuestoID" />
+                <ScalarProperty Name="P_Ejecutado" ColumnName="P_Ejecutado" />
+                <ScalarProperty Name="ID_I" ColumnName="ID_I" />
+                <ScalarProperty Name="ID_II" ColumnName="ID_II" />
+                <ScalarProperty Name="ID_III" ColumnName="ID_III" />
+                <ScalarProperty Name="ID_IV" ColumnName="ID_IV" />
+                <ScalarProperty Name="I" ColumnName="I" />
+                <ScalarProperty Name="II" ColumnName="II" />
+                <ScalarProperty Name="III" ColumnName="III" />
+                <ScalarProperty Name="IV" ColumnName="IV" />
+                <ScalarProperty Name="Cumplimiento" ColumnName="Cumplimiento" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spMetaAndProgramaciones" FunctionName="PEDIModel.Store.spMetaAndProgramaciones">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spMetaAndProgramaciones_Result1">
+                <ScalarProperty Name="MetaID" ColumnName="MetaID" />
+                <ScalarProperty Name="Indicadores" ColumnName="Indicadores" />
+                <ScalarProperty Name="Metas" ColumnName="Metas" />
+                <ScalarProperty Name="PresupuestoID" ColumnName="PresupuestoID" />
+                <ScalarProperty Name="Presupuesto" ColumnName="Presupuesto" />
+                <ScalarProperty Name="ID_I" ColumnName="ID_I" />
+                <ScalarProperty Name="ID_II" ColumnName="ID_II" />
+                <ScalarProperty Name="ID_III" ColumnName="ID_III" />
+                <ScalarProperty Name="ID_IV" ColumnName="ID_IV" />
+                <ScalarProperty Name="I" ColumnName="I" />
+                <ScalarProperty Name="II" ColumnName="II" />
+                <ScalarProperty Name="III" ColumnName="III" />
+                <ScalarProperty Name="IV" ColumnName="IV" />
+                <ScalarProperty Name="Mes" ColumnName="Mes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spMetaAndEjecucionPEDIGeneral" FunctionName="PEDIModel.Store.spMetaAndEjecucionPEDIGeneral">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spMetaAndEjecucionPEDIGeneral_Result">
+                <ScalarProperty Name="MetaID" ColumnName="MetaID" />
+                <ScalarProperty Name="Responsables" ColumnName="Responsables" />
+                <ScalarProperty Name="Indicadores" ColumnName="Indicadores" />
+                <ScalarProperty Name="Metas" ColumnName="Metas" />
+                <ScalarProperty Name="ID_I" ColumnName="ID_I" />
+                <ScalarProperty Name="ID_II" ColumnName="ID_II" />
+                <ScalarProperty Name="ID_III" ColumnName="ID_III" />
+                <ScalarProperty Name="ID_IV" ColumnName="ID_IV" />
+                <ScalarProperty Name="ID_V" ColumnName="ID_V" />
+                <ScalarProperty Name="I" ColumnName="I" />
+                <ScalarProperty Name="II" ColumnName="II" />
+                <ScalarProperty Name="III" ColumnName="III" />
+                <ScalarProperty Name="IV" ColumnName="IV" />
+                <ScalarProperty Name="V" ColumnName="V" />
+                <ScalarProperty Name="Planificacion" ColumnName="Planificacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spMetaAndEjecucionPEDI" FunctionName="PEDIModel.Store.spMetaAndEjecucionPEDI">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PEDIModel.spMetaAndEjecucionPEDI_Result">
+                <ScalarProperty Name="MetaID" ColumnName="MetaID" />
+                <ScalarProperty Name="Indicadores" ColumnName="Indicadores" />
+                <ScalarProperty Name="Metas" ColumnName="Metas" />
+                <ScalarProperty Name="ID_I" ColumnName="ID_I" />
+                <ScalarProperty Name="ID_II" ColumnName="ID_II" />
+                <ScalarProperty Name="ID_III" ColumnName="ID_III" />
+                <ScalarProperty Name="ID_IV" ColumnName="ID_IV" />
+                <ScalarProperty Name="ID_V" ColumnName="ID_V" />
+                <ScalarProperty Name="I" ColumnName="I" />
+                <ScalarProperty Name="II" ColumnName="II" />
+                <ScalarProperty Name="III" ColumnName="III" />
+                <ScalarProperty Name="IV" ColumnName="IV" />
+                <ScalarProperty Name="V" ColumnName="V" />
+                <ScalarProperty Name="Planificacion" ColumnName="Planificacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spMetasInsert" FunctionName="PEDIModel.Store.spMetasInsert" />
+          <FunctionImportMapping FunctionImportName="spEvidenciasInsert" FunctionName="PEDIModel.Store.spEvidenciasInsert" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

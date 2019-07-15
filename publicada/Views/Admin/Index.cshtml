@@ -1,0 +1,413 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>:: Gestión Plan Operativo Anual ::</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- pusher-js -->
+    <script src="//js.pusher.com/2.2/pusher.min.js"></script>
+    @Styles.Render("~/Content/plantillaCss")
+    @Styles.Render("~/Content/plugins")
+
+
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" />
+    <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
+
+
+
+</head>
+<body ng-app="appGestion">
+    <div class="wrapper" ng-controller="LoginController as vm">
+        <div class="sidebar" data-active-color="green" data-background-color="black" data-image="/Content/img/sidebar-1.jpg">
+            <!--
+                Tip 1: You can change the color of active element of the sidebar using: data-active-color="purple | blue | green | orange | red | rose"
+                Tip 2: you can also add an image using data-image tag
+                Tip 3: you can change the color of the sidebar with data-background-color="white | black"
+            -->
+            <div class="logo">
+                <a href="#" class="simple-text">
+                    <img src="~/Content/img/logo.png" />
+                </a>
+            </div>
+            <div class="logo logo-mini">
+                <a href="#" class="simple-text">
+                    <img src="~/Content/img/logomini.png" />
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <div class="user">
+                    <div class="photo">
+                        <!--    <img src="~/Content/img/faces/card-profile1-square.jpg" />-->
+                        <img src="@Request.RequestContext.HttpContext.Session["foto"]" />
+                    </div>
+                    <div class="info">
+                        <a ng-show="vm.status=='POA'" data-toggle="collapse" href="#collapseExample" class="collapsed">
+                            POA
+                            <b class="caret"></b>
+                        </a>
+                        <a ng-show="vm.status=='PEDI'" data-toggle="collapse" href="#collapseExample" class="collapsed">
+                            PEDI
+                            <b class="caret"></b>
+                        </a>
+                        <div class="collapse" id="collapseExample">
+                            <ul class="nav">
+                                <li>
+                                    <a href="#" ng-click="vm.logout()">Salir</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="nav">
+                    <li ng-show="vm.rol=='Administrador' && vm.status=='PEDI'">
+                        {
+                        <a data-toggle="collapse" href="#subsistema">
+                            <i class="material-icons">dialpad</i>
+                            <p>
+                                Subsistemas
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="subsistema">
+                            <ul class="nav">
+                                <li style="padding-left:12px;">
+                                    <a href="#!/Subsistema"><i class="material-icons" style="color: #4caf50;">add</i>Nuevo</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li ng-show="vm.rol=='Administrador'  && vm.status=='PEDI'" data-status="@Request.RequestContext.HttpContext.Session["POAorPEDI"]" id="status">
+                        <a data-toggle="collapse" href="#objetivoestrategico">
+                            <i class="material-icons">gps_fixed</i>
+                            <p>
+                                O. E. Institucional
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="objetivoestrategico">
+                            <ul class="nav">
+                                <li style="padding-left:12px;">
+                                    <a href="#!/Objetivo/Estrategico"><i class="material-icons" style="color: #4caf50;">add</i>Nuevo</a>
+                                </li>
+                                <li style="padding-left:12px;">
+                                    <a href="#!/Objetivo/Estrategico/Ejecucion"><i class="material-icons" style="color: #4caf50;">play_circle_filled</i>Ejecución</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li ng-show="vm.rol=='Administrador'  && vm.status=='PEDI'">
+                        <a data-toggle="collapse" href="#objetivoespecifico">
+                            <i class="material-icons">golf_course</i>
+                            <p>
+                                O. Especifico
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="objetivoespecifico">
+                            <ul class="nav">
+                                <li style="padding-left:12px;">
+                                    <a href="#!/Objetivo/Especifico"><i class="material-icons" style="color: #4caf50;">add</i>Nuevo</a>
+                                </li>
+                                <li style="padding-left:12px;">
+                                    <a href="#!/Objetivo/Especifico/Asignacion"> <i class="material-icons" style="color: #4caf50;">library_add</i>Asignacion</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" href="#estrategia">
+                            <i class="material-icons">card_travel</i>
+                            <p>
+                                Estrategias
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="estrategia">
+                            <ul class="nav">
+                                <li style="padding-left:12px;">
+                                    <a href="#!/Planificacion/Estrategia"><i class="material-icons" style="color: #4caf50;">add</i>Nuevo</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" href="#indicadores">
+                            <i class="material-icons">timeline</i>
+                            <p>
+                                Indicadores
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="indicadores">
+                            <ul class="nav">
+                                <li style="padding-left:12px;">
+                                    <a href="#!/Estrategia/Indicadores"> <i class="material-icons" style="color: #4caf50;">add</i>Nuevo</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" href="#metas">
+                            <i class="material-icons">assistant_photo</i>
+                            <p>
+                                Metas
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="metas">
+                            <ul class="nav">
+                                <li style="padding-left:12px;">
+                                    <a href="#!/Metas/Nuevo"> <i class="material-icons" style="color: #4caf50;">add</i>Nuevo</a>
+                                </li>
+                                <li ng-show=" vm.status=='POA'" style="padding-left:12px;">
+                                    <a href="#!/Metas/Acciones"> <i class="material-icons" style="color: #4caf50;">text_format</i>Acciones</a>
+                                </li>
+                                <li ng-show="vm.status=='PEDI'" style="padding-left:12px;">
+                                    <a href="#!/Metas/Asignacion"> <i class="material-icons" style="color: #4caf50;">library_add</i>Asignacion</a>
+                                </li>
+                                <li style="padding-left:12px;">
+                                    <a href="#!/Metas/Planificacion"> <i class="material-icons" style="color: #4caf50;">card_travel</i>Planificación</a>
+                                </li>
+                                <li style="padding-left:12px;">
+                                    <a href="#!/Metas/Ejecucion"> <i class="material-icons" style="color: #4caf50;">play_circle_filled</i>Ejecución</a>
+                                </li>
+                                <li style="padding-left:12px;" ng-show="vm.status=='PEDI'" ">
+                                    <a href="#!/Metas/Informacion/Adicional"> <i class="material-icons" style="color: #4caf50;">info</i>Fórmula Cálculo</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li ng-show="vm.status=='PEDI'">
+                        <a href="">
+                            <i class="material-icons">content_paste</i>
+                            <p>
+                                Reportes
+                            </p>
+                        </a>
+                    </li>
+                    <li ng-show="vm.status=='PEDI'">
+                        <a data-toggle="collapse" href="#configuracion">
+                            <i class="material-icons">build</i>
+                            <p>
+                                Configuraciones
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="configuracion">
+                            <ul class="nav">
+                                <li style="padding-left:12px;">
+                                    <a href="#!/Periodicidad"> <i class="material-icons" style="color: #4caf50;">add</i>Periodicidad</a>
+                                </li>
+                                <li style="padding-left:12px;">
+                                    <a href="#!/Periodo"> <i class="material-icons" style="color: #4caf50;">add</i>Periodo</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li ng-show="vm.status=='POA' && vm.rol !='Administrador'">
+                        <a data-toggle="collapse" href="#pedi">
+                            <i class="material-icons">library_books</i>
+                            <p>
+                                PEDI
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="pedi">
+                            <ul class="nav">
+                                <li style="padding-left:12px;">
+                                    <a href="#!/Metas/PEDI"> <i class="material-icons" style="color: #4caf50;">play_circle_filled</i>Metas Ejecución</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <div id="myDivDepartmentID" ng-hide="true" class="hidden" data-value="@Request.RequestContext.HttpContext.Session["department"]" data-strol="@Request.RequestContext.HttpContext.Session["rol"]"></div>
+            <nav class="navbar navbar-default navbar-absolute">
+                <div class="container-fluid">
+                    <div class="navbar-minimize">
+                        <button id="minimizeSidebar" class="btn btn-round btn-white btn-fill btn-just-icon">
+                            <i class="material-icons visible-on-sidebar-regular">more_vert</i>
+                            <i class="material-icons visible-on-sidebar-mini">view_list</i>
+                        </button>
+                    </div>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#" ng-show="vm.status=='POA'"> @ViewBag.Title - Gestión del Plan Operativo Anual </a>
+                        <a class="navbar-brand" href="#" ng-show="vm.status =='PEDI'"> @ViewBag.Title - Gestión del Plan Estratégico Institucional </a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown" ng-controller="HomeController as vn" ng-show="vm.rol=='Administrador'">
+                                <a href="#!/Planificacion/Alertas" class="btn btn-just-icon btn-dribbble dropdown-toggle" data-toggle="dropdown" style="margin-right:25px; margin-top:7px;">
+                                    <i class="material-icons text-orange">notifications_active</i> <div class="floating ui red label">{{ vn.alertsCounts}}</div>
+
+                                    <p class="hidden-lg hidden-md" style="text-align:left">
+                                        Usuario
+                                        <b class="caret"></b>
+                                    </p>
+                                </a>
+                                @*<ul class="dropdown-menu">
+                                        <li><a href="#action"><i class="material-icons">history</i> &nbsp;&nbsp;Historial</a></li>
+                                        <li><a href="#"><i class="material-icons">notifications_active</i> &nbsp;&nbsp;Notificaciones</li></a>
+                                    </ul>*@
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="btn btn-just-icon btn-github dropdown-toggle" data-toggle="dropdown">
+                                    <i class="material-icons text-orange">https</i>
+
+                                    <p class="hidden-lg hidden-md" style="text-align:left">
+                                        Opciones
+                                        <b class="caret"></b>
+                                    </p>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li ng-click="vm.logout()"><a href="#"><i class="material-icons">lock_outline</i> &nbsp;&nbsp; Salir</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+            </nav>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div ng-view=""></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <p class="copyright pull-right">
+                        &copy;
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>
+                        <a id="p" href="http://www.espam.edu.ec/" data-toggle="modal" data-target="#myModalss">UPS</a> Unidad de Producción de Software
+                    </p>
+                </div>
+            </footer>
+        </div>
+
+    </div>
+
+    @*@Scripts.Render("~/bundles/angular")
+        @Scripts.Render("~/bundles/plantillaJS")*@
+    <script src="@Url.Content("~/Scripts/assets/js/jquery-3.1.1.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/jquery-ui.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/jquery-jvectormap.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/plugins/semantic.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/material.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/perfect-scrollbar.jquery.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/moment.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/chartist.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/jquery.bootstrap-wizard.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/bootstrap-notify.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/jquery.sharrre.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/bootstrap-datetimepicker.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/nouislider.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/jquery.select-bootstrap.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/jquery.datatables.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/sweetalert2.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/jasny-bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/fullcalendar.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/jquery.tagsinput.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/material-dashboard.js")"></script>
+    <script src="@Url.Content("~/Scripts/plugins/alertify.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/assets/js/demo.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/angular.min.js")"></script>
+    <script src="@Url.Content("~/App/app.js")"></script>
+    <script src="@Url.Content("~/Scripts/angular-route.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/angular-animate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/angular-touch.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/ng-table.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/angular-input-masks-standalone.js")"></script>
+    <script src="@Url.Content("~/Scripts/cookies.js")"></script>
+    <script src="@Url.Content("~/Scripts/angular-pusher.js")"></script>
+    <script src="@Url.Content("~/App/Services/SubsistemasServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/ObjetivosEspecificosServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/ObjetivosEstrategicosServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/IndicadoresServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/AccionesServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/EstrategiasServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/LoginServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/MetasServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/EvidenciasServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/IntervalosServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/ProgramacionesServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/DepartamentosServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/MetasDepartamentosServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/ObjetivosEspecificosDepartamentosServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/PeriodicidadServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/InformacionAdicionalServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/AlertasServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/PeriodosServices.js")"></script>
+    <script src="@Url.Content("~/App/Services/TiposDependenciasServices.js")"></script>
+    <script src="@Url.Content("~/App/Controller/SubsistemasController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/ObjetivosEspecificosController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/ObjetivosEstrategicosController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/IndicadoresController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/AccionesController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/LoginController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/MetasController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/MetasDepartamentosController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/ObjetivosEspecificosDepartamentosController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/PeriodicidadController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/InformacionAdicionalController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/CumplimientoOEstrategicoController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/AlertasController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/PeriodosController.js")"></script>
+    <script src="@Url.Content("~/App/Controller/HomeController.js")"></script>
+    <script src="@Url.Content("~/App/Directivas/numbersOnly.js")"></script>
+    <script src="@Url.Content("~/App/Controller/EstrategiasController.js")"></script>
+    <script src="@Url.Content("~/App/Directivas/decimalOnly.js")"></script>
+    <script src="@Url.Content("~/App/Directivas/formatCurrency.js")"></script>
+    <script src="@Url.Content("~/App/Directivas/loader.js")"></script>
+
+    <script type="text/javascript">
+        $().ready(function () {
+
+            $('.datepicker').datetimepicker({
+                format: 'YYYY/MM/DD',
+                icons: {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove',
+                    inline: true
+                }
+            });
+
+            demo.checkFullPageBackgroundImage();
+
+            setTimeout(function () {
+                // after 1000 ms we add the class animated to the login/register card
+                $('.card').removeClass('card-hidden');
+            }, 700)
+        });
+    </script>
+
+</body>
+</html>
