@@ -25,6 +25,7 @@ namespace GestionPOA.Controllers
                              join i in db.intervalo on p.id equals i.PeriodoId
                              where p.eliminado == false
                              where i.eliminado == false
+                             where pl.eliminado==false
                              where pl.DepartamentoID == iddeparment
                              where tp.Descripcion == POAorPEDI
                              orderby i.Descripcion ascending
@@ -47,6 +48,7 @@ namespace GestionPOA.Controllers
                              join i in db.intervalo on p.id equals i.PeriodoId
                              where p.eliminado == false
                              where i.eliminado == false
+                             where pl.eliminado==false
                              where tp.Descripcion == POAorPEDI
                              orderby i.Descripcion ascending
                              select new
